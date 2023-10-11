@@ -1,0 +1,210 @@
+ body{
+  background-color:#e8e8e8!important;
+  /* background-color: #e3fdfd !important; */
+  /* background-image:-webkit-linear-gradient(65deg, #a6e3e9 50%, #e3fdfd 50%)!important; */
+
+}
+
+.navbar-bg{
+  background-color: white;
+
+}
+.nav-ul{
+  margin-left: 15px;
+}
+.nav-item{
+  color:black;
+  font-size:large;
+  padding: 0 5px 0 5px;
+}
+.landingPhoto{
+  width:95%;
+  margin:10px 1% 0 1%;
+  padding:10px;
+  position: absolute;
+
+}
+
+.tagline{
+  
+  color:white;
+  position: relative; 
+  margin-top:20%;
+  margin-left:20%; 
+
+}
+
+.register-btn{
+  margin-left:20%;
+  position:relative;
+
+}
+
+.first-container{
+  margin-bottom :320px;
+}
+.aboutUs-para{
+  font-size: 18px;
+  text-align: center;
+
+}
+.aboutUs{
+  background-color:white ;
+  margin: auto;
+  padding:1% 3% 0% 3%;
+  text-align: left;
+  position:sticky;
+}
+.aboutUs-head{
+  text-align: center;
+}
+.feature-box {
+  text-align: center;
+  background-color: white;
+  /* margin:4% 0 4% 0; */
+  padding-bottom: 10%;
+  padding-top:5%;
+}
+.third-section{
+  /* background-color:#434242; */
+  background-image:-webkit-linear-gradient(65deg, #a6e3e9 50%, #e3fdfd 50%);
+  margin:2% 3% ;
+  padding-bottom:150px;
+  border:1px solid;
+}
+.testimonial-text{
+  text-align:center;
+  margin:10% 5% 10% 5%;
+  color:black;
+  line-height: 1.5;
+}
+em{
+  color:black;
+ text-align: center;
+ margin-top:5%;
+ margin-left:2%;
+}
+.testimonial-image{
+
+  width: 15%;
+  border-radius: 100%;
+  margin-left:40%;
+  
+}
+.register{
+  background-color: white;
+  margin: 5% 0 0 5%;
+}
+.faq{
+  background-color: white;
+  padding-bottom: 5%;
+  margin-bottom: 10%;
+}
+.card-component{
+  width: 80%;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 2%;
+}
+
+
+.form-signin {
+  width: 50%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+  
+}
+.form-signin .form-control:focus {
+  z-index: 1;
+}
+
+.form-signup {
+  width: 100%;
+  max-width: 450px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signup .checkbox {
+  font-weight: 400;
+}
+.form-signup .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signup .form-control:focus {
+  z-index: 2;
+}
+
+
+.form-profile {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px;
+  margin: auto;
+}
+.form-profile .checkbox {
+  font-weight: 400;
+}
+.form-profile .form-control {
+  
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+} 
+
+
+#app {
+  padding: 1rem;
+  background: black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #54FE55;
+  text-shadow: 2px 2px 10px;
+  font-size: 8rem;
+  flex-direction: column;
+}
+
+#app .txt {
+  font-size: 2rem;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  49% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.blink {
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
