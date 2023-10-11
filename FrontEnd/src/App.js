@@ -13,6 +13,7 @@ function App() {
    return (
     <div>
       <Routes>
+        {/* <Route path='/' element={<User />}/> */}
       
           <Route path='/' element={<Landing />} />
           <Route path='signin' element={<SignIn />} />

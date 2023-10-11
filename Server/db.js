@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
+const dotenv=require("dotenv");
+dotenv.config({path:'mongo.env'});
+const url=process.env.MONGOURL;
 
 function connectToMongo() {
     mongoose.set("strictQuery", true);
-    mongoose.connect('mongodb+srv://SyedFahad:qVSWAthZ3bgrzha@cluster0.q71wutp.mongodb.net/CareerGuru?retryWrites=true&w=majority',
+    mongoose.connect(url,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -10,14 +13,14 @@ function connectToMongo() {
             useFindAndModify: false
         }
     );
-   /*  mongoose.connect('mongodb://127.0.0.1:27017/CG',
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-        }
-    ); */
+    // mongoose.connect('mongodb://127.0.0.1:27017/CG',
+    //     {
+    //         useNewUrlParser: true,
+    //         useUnifiedTopology: true,
+    //         useCreateIndex: true,
+    //         useFindAndModify: false
+    //     }
+    // ); 
 
     const db = mongoose.connection;
 
