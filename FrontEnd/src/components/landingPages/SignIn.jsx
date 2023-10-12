@@ -22,7 +22,9 @@ const SignIn = (props) => {
         if (json.success) {
             // Save the auth token and redirect
             localStorage.setItem('token', json.authtoken);
-            navigate("/user");
+            console.log(json.type);
+            if(json.type==="jobSeeker") navigate('/user');
+            else navigate('/recruiter');
         }
         else {
             alert("Invalid credentials");
@@ -45,10 +47,10 @@ const SignIn = (props) => {
 
                             <h1 className="h5 mb-3 font-weight-normal">Build your Career</h1>
 
-                            <input type="email" name="email" className="form-control bottom" placeholder="Enter Email" value={credentials.email} onChange={onChange} nofill />
+                            <input type="email" name="email" className="form-control bottom" placeholder="Enter Email" value={credentials.email} onChange={onChange} nofill="true"/>
 
                             <input type="password" name="password" className="form-control bottom" placeholder="Enter Password" value={credentials.password} onChange={onChange}autoComplete="off" 
-                            nofill
+                            nofill="true"
                              />
                             <br></br>
 

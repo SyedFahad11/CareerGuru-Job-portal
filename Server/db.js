@@ -5,22 +5,22 @@ const url=process.env.MONGOURL;
 
 function connectToMongo() {
     mongoose.set("strictQuery", true);
-    mongoose.connect(url,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-        }
-    );
-    // mongoose.connect('mongodb://127.0.0.1:27017/CG',
+    // mongoose.connect(url,
     //     {
     //         useNewUrlParser: true,
     //         useUnifiedTopology: true,
     //         useCreateIndex: true,
     //         useFindAndModify: false
     //     }
-    // ); 
+    // );
+    mongoose.connect('mongodb://127.0.0.1:27017/CG',
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false
+        }
+    ); 
 
     const db = mongoose.connection;
 

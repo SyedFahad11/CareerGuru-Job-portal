@@ -7,6 +7,7 @@ import Register from "./components/landingPages/Register";
 import Profile from "./components/userPages/Profile";
 import RecJobs from "./components/userPages/RecJobs"
 import SavedJobs from "./components/userPages/SavedJobs"
+import Recruiter from "./components/recruiterPages/Recuiter"
 
 function App() {
   
@@ -22,7 +23,8 @@ function App() {
           <Route path='user/profile' element={<Profile />} />
           <Route path='user/RecJobs' element={<RecJobs/>} />
           <Route path='user/SavJobs' element={<SavedJobs/>} />
-        
+          
+          <Route path='recruiter' element={<Recruiter/>} />
       </Routes>
     </div>
   );
