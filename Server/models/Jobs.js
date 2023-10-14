@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const JobsSchema = new Schema({
+
+    recId:{
+        type:String,
+        required:true
+
+    },
     title:{
         type: String,
         required: true
@@ -32,6 +38,7 @@ const JobsSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    
   });
   const Jobs = mongoose.model('jobs', JobsSchema);
   module.exports = Jobs;

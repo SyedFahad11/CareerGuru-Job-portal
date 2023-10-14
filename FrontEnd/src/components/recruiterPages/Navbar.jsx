@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom"
 
 function Navbar() {
     const navigate=useNavigate()
+    
     const logout=()=>{
         localStorage.clear();
         navigate("/");
@@ -10,7 +11,7 @@ function Navbar() {
     return (
         <div className="container-fluid ">
             <nav className="navbar navbar-expand-lg navbar-bg navbar-light " >
-                <a className="navbar-brand " href='/user' >CareerGuru</a>
+                <a className="navbar-brand " href='/recruiter' >CareerGuru</a>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler">
                     <span className="navbar-toggler-icon"></span>
@@ -20,22 +21,22 @@ function Navbar() {
                 >
                     <ul className="navbar-nav nav-ul">
                         <li className="nav-item ">
-                            <a className="nav-link" href="/user/RecJobs">Recommended Jobs </a>
+                            <a className="nav-link" href="/recruiter/addJobs">PostJobs</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/user/SavJobs" >Saved Jobs</a>
+                            <a className="nav-link" href="/recruiter/myJobs" >MyJobs</a>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" >Applied Jobs</a>
+                            <a className="nav-link" >Employees</a>
                         </li>
                     </ul>
                     <ul className="navbar-nav nav-ul">
                         <li className="nav-item">
-                            <a className="nav-link " href="/user/profile" >Profile</a>
+                            <a className="nav-link " href="/recruiter/profile" >Profile</a>
                         </li>
                         <li className="nav-item ">
-                            <button className="btn btn-primary btn-md px-4 py-1 mt-1" onClick={logout}>Logout</button>
+                            <button className="btn btn-danger btn-md px-4 py-1 mt-1" onClick={logout}>Logout</button>
                             
                         </li>
 

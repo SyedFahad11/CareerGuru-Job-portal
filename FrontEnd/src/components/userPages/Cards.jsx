@@ -44,7 +44,7 @@ function Card(props) {
 
                 <div className="row mb-1">
                     <h6 className=" mb-0 text-muted">Salary :</h6>
-                    <h6 className=" font-weight-normal mb-0 text-muted ">{props.Salary}</h6>
+                    <h6 className=" font-weight-normal mb-0 text-muted  ">{props.Salary}</h6>
 
                 </div>
 
@@ -55,14 +55,14 @@ function Card(props) {
 
                 </div>
                 <div className="row mb-1">
-                    <h6 className=" mb-0 text-muted">Working Hours:</h6>
+                    <h6 className=" mb-0 text-muted">Working Hours : </h6>
                     <h6 className=" font-weight-normal mb-0 text-muted ">{props.WorkingHours}</h6>
-                    
-
-
-
                 </div>
-                <p className="row mb-2  text-muted ">{props.Info}</p>
+                <div className="row mb-1">
+                    <h6 className=" mb-0 text-muted">Description : </h6>
+                    <h6 className=" font-weight-normal mb-0 text-muted ">{props.Info}</h6>
+                </div>
+
 
                 <div className="row mb-2">
                     <h6 className=" mb-0 text-muted">Posted On :</h6>

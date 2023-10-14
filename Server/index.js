@@ -19,20 +19,21 @@ app.use('/api/jobs',require("./routes/apiRoutes"));
 
 connectToMongo();
 
-// app.get("/", function(req, res) {
-//   res.sendFile(path.join(__dirname, 'postJobs.html'));
-// });
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, 'postJobs.html'));
+});
 
-app.get("/",function(req,res){
-  console.log("Hello From Server");
-  var JSON={
-    "HI":"Bye"
-  }
-  res.send(JSON);
-})
+// app.get("/",function(req,res){
+//   console.log("Hello From Server");
+//   var JSON={
+//     "HI":"Bye"
+//   }
+//   res.send(JSON);
+// })
 
 
 
-app.listen(5000, function() {
+app.listen(5000,function() {
+
   console.log("Server started on port 5000");
 });

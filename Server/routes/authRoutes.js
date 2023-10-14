@@ -151,11 +151,11 @@ router.post('/login', [
 
 
 // ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
-router.post('/getuser', fetchuser, async (req, res) => {
+router.post('/getJobSeekerDetails', fetchuser, async (req, res) => {
 
   try {
     const userId = req.user.id;
-    const user = await User.findById(userId)//.select("-password")
+    var user = await User.findById(userId)//.select("-password")
     res.send(user)
 
   } catch (error) {
@@ -164,10 +164,26 @@ router.post('/getuser', fetchuser, async (req, res) => {
   }
 })
 
-router.post('/updateuser', fetchuser, async (req, res) => {
+// ROUTE 4: Get loggedin Recruiter Details using: POST "/api/auth/getuser". Login required
+router.post('/getRecruiterDetails', fetchuser, async (req, res) => {
+
+  try {
+    const userId = req.user.id;
+    var user = await Recruiter.findById(userId)//.select("-password")
+    res.send(user)
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+})
+
+
+router.post('/updateJobSeekerDetails', fetchuser, async (req, res) => {
   //find by id and delete user
   const userId = req.user.id;
-  const user = await User.findById(userId)
+  var user = await User.findById(userId);
+  
 
   console.log(user)
   const { userName, email, password, skills, job, pay, qualification } = req.body;
@@ -181,9 +197,6 @@ router.post('/updateuser', fetchuser, async (req, res) => {
   if (qualification !== user.qualification) newObject.qualification = qualification;
   const note = await User.findByIdAndUpdate(userId, { $set: newObject }, { new: true })
   console.log(note)
-
-
-
   //Create user with new details
   res.send({ obj: "value" })
 })
