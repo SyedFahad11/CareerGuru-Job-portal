@@ -24,6 +24,7 @@ router.post('/createuser', [
 
   try {
     // Check whether the user with this email exists already
+    console.log(req.body)
     let user = await User.findOne({ email: req.body.email });
     let recruiter = await Recruiter.findOne({ email: req.body.email });
     if (user) {
@@ -41,6 +42,7 @@ router.post('/createuser', [
         userName: req.body.userName,
         password: req.body.password,
         email: req.body.email,
+        Url:req.body.Url
       })
       data = {
         recruiter: {
@@ -54,6 +56,7 @@ router.post('/createuser', [
         password: req.body.password,
         email: req.body.email,
         skills: req.body.skills,
+        Url:req.body.Url,
         job: req.body.job,
         pay: req.body.pay,
         qualification: req.body.qualification
@@ -152,17 +155,16 @@ router.post('/login', [
 
 // ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
 router.post('/getJobSeekerDetails', fetchuser, async (req, res) => {
-
   try {
     const userId = req.user.id;
-    var user = await User.findById(userId)//.select("-password")
-    res.send(user)
-
+    var user = await User.findById(userId).select('-password');
+    res.send(user);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
-})
+});
+
 
 // ROUTE 4: Get loggedin Recruiter Details using: POST "/api/auth/getuser". Login required
 router.post('/getRecruiterDetails', fetchuser, async (req, res) => {
