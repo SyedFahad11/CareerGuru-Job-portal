@@ -6,8 +6,15 @@ import Navbar from "./Navbar";
 function Profile() {
     const [data, setData] = useState({});
     const token = localStorage.getItem("token");
+    const userdata=localStorage.getItem("userData")
+   
     useEffect(() => {
-        getUser()
+        if(userdata!==""){
+            setData(JSON.parse(userdata));
+        }
+        else{
+            getUser();
+        }
     }, [])
 
     const [imageData, setImageData] = useState({
@@ -74,7 +81,7 @@ function Profile() {
             <Navbar />
             <h2 className="h2 mb-4 container font-weight-normal" style={{ width: "55%", textAlign: "center", marginTop: "1%" }}>My Profile</h2>
 
-            <img className="mb-3 rounded-circle" src={`https://www.kasandbox.org/programming-images/avatars/mr-pants.png`} alt="ProfileImage" style={{ "height": "150px", "width": "150px", "marginLeft": "auto", "marginRight": "auto", "display": "block" }} />
+            <img className="mb-3 rounded-circle" src={data.Url} alt="ProfileImage" style={{ "height": "150px", "width": "150px", "marginLeft": "auto", "marginRight": "auto", "display": "block" }} />
 
             <div className="container " style={{ width: "55%", backgroundColor: "white", borderRadius: "15px", marginTop: "2%", padding: "20px", marginBottom: "100px" }}>
 
