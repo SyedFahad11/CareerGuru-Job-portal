@@ -28,6 +28,9 @@ const UserSchema = new Schema({
     qualification:{
         type: String
     },
+    Url:{
+        type:String
+    },
     date:{
         type: Date,
         default: Date.now
