@@ -20,7 +20,7 @@ function connectToMongo() {
             useCreateIndex: true,
             useFindAndModify: false
         }
-    ); 
+    );
 
     const db = mongoose.connection;
 

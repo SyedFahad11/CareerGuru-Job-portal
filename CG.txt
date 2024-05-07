@@ -1,0 +1,30 @@
+Recruiter
+creation of seperate login interface for job poster
+
+
+Applicant-
+job sort and filters
+sending sop
+
+
+
+Sort and search option
+Save Alumni profile in Company
+Deploying on cloud
+
+Favicon on title
+Red Green Alerts
+Location based Highlight at Navbar
+Change Title Dynamically
+Dark Mode toggle Switch
+Loading spinner
+Top Loading Bar
+Sticky Navbar
+Font awesome icons in Navbar and other
+
+use of location hook?
+https://dmitripavlutin.com/fetch-with-json/ research about this
+use of prevent default
+passoword and user match prelogin in auth
+
+
