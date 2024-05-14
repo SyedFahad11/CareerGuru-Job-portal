@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Navbar from "./Navbar";
 import Card from "./Cards";
 import { borderRadius } from "@mui/system";
@@ -6,24 +6,25 @@ import { borderRadius } from "@mui/system";
 
 function RecJobs() {
     const [jobData, setJob] = useState([]);
-    const token=localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-    const getInfo = async () => {
+    const getInfo = useMemo(() => async () => {
+        console.log("new data");
         const response = await fetch("http://localhost:5000/api/seek/availableJobs", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token':token
+                'auth-token': token
             }
         });
         const json = await response.json();
         console.log(json);
         setJob(json);
-    };
+    }, [token]);
 
     useEffect(() => {
         getInfo();
-    }, []);
+    }, [getInfo]);
 
     function AddEntries(props) {
         return (
@@ -39,7 +40,7 @@ function RecJobs() {
                     type={props.type}
                     _id={props._id}
                     page="rec"
-                />
+                />  
             </div>
         );
     }

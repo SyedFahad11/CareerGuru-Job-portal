@@ -13,16 +13,19 @@ const router = express.Router();
 router.get("/availableJobs", fetchuser, async (req, res) => {
     try {
 
-        const availableJobs = await Jobs.find();
 
         const user_id = req.user.id;
+        const availableJobs = await Jobs.find();
 
         const applicationIds = await SeekerAppliedJobs.distinct('arr._id', { _id: user_id });
-        const appliedJobIds=[];
-        applicationIds.map(async(id)=>{
-            const application=await Application.findById(id);
+
+
+        const appliedJobIds = [];
+        
+        await Promise.all( applicationIds.map(async (id) => {
+            const application = await Application.findById(id);
             appliedJobIds.push(application.jobId);
-        })
+        }));
 
         console.log(appliedJobIds);
 
@@ -30,15 +33,26 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
 
         // Iterate through available jobs and add 'type' field
-        const jobsWithTypes = availableJobs.map(job => {
+        const jobsWithTypes = await Promise.all( availableJobs.map((job) => {
             let type = 'empty';
-            if (appliedJobIds.includes(job._id.toString())) {
-                type = 'applied';
-            } else if (savedJobIds.includes(job._id.toString())) {
-                type = 'saved';
+            for (const appliedJobId of appliedJobIds) {
+                if (appliedJobId === job._id.toString()) {
+                    type = 'applied';
+                    break;
+                }
+            }
+            if (type === 'empty') {
+                for (const savedJobId of savedJobIds) {
+                    if (savedJobId === job._id.toString()) {
+                        type = 'saved';
+                        break;
+                    }
+                }
             }
             return { ...job.toObject(), type };
-        });
+        }));
+
+
 
         res.json(jobsWithTypes);
 
@@ -93,13 +107,30 @@ router.post('/savedJobs', fetchuser, async (req, res) => {
 router.get('/savedJobs', fetchuser, async (req, res) => {
     try {
 
-
-        const savedJobsData = await SavedJobs.findById(req.user.id);
+        const seekerId = req.user.id;
+        const savedJobsData = await SavedJobs.findById(seekerId);
         const Array = []
-        //Array.push({salary:"56"})
+
+        const applicationIds = await SeekerAppliedJobs.distinct('arr._id', { _id: seekerId });
+        const appliedJobIds = [];
+        applicationIds.map(async (id) => {
+            const application = await Application.findById(id);
+            appliedJobIds.push(application.jobId);
+        })
+
         const asyncResolution = await Promise.all(savedJobsData.arr.map(async (obj) => {
+
             const eachData = await Jobs.findById(obj.job_id);
-            Array.push(eachData)
+            //console.log(eachData);
+
+            let type = null;
+            if (appliedJobIds.includes(eachData._id.toString())) {
+                type = 'applied';
+            } else {
+                type = 'saved';
+            }
+            const newData = { type, ...eachData._doc }
+            Array.push(newData)
 
         })
         )

@@ -36,7 +36,8 @@ function AppliedJobs() {
             postedDate={props.date}
             Info={props.description}
             _id={props._id}
-            page="save"
+            page="applied"
+            
         />
     }
 

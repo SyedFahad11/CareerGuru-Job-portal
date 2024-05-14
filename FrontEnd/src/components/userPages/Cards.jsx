@@ -3,6 +3,7 @@ import Modal from "./Modal";
 function Card(props) {
     const token = localStorage.getItem('token');
     const [expanded, setExpanded] = useState(false);
+
     const [buttonState, setButtonState] = useState(props.type);
 
     const handleToggleDescription = () => {
@@ -42,11 +43,6 @@ function Card(props) {
         }
 
 
-    };
-
-    const handleApply = async (e) => {
-
-        setButtonState("applied");
     };
 
 
@@ -130,7 +126,7 @@ function Card(props) {
                                     <div>
                                         <button className="btn btn-warning btn-sm" style={styles.actionButton}>Saved</button>
 
-                                        <Modal  jobId={props._id}/>
+                                        <Modal jobId={props._id} />
 
                                     </div>
                                 }
@@ -140,7 +136,7 @@ function Card(props) {
                                 {buttonState === 'empty' &&
                                     <div>
                                         <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
-                                        <Modal  _id={props._id} />
+                                        <Modal _id={props._id} />
 
 
                                     </div>
@@ -151,9 +147,22 @@ function Card(props) {
                         )}
 
                         {props.page === 'save' && (
+
                             <div style={styles.buttonGroup}>
-                                <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
-                                <Modal  _id={props._id}/>
+
+                                {buttonState === 'applied' &&
+                                    <div>
+                                        <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
+
+                                        <button className="btn btn-success btn-sm" style={styles.actionButton}>Applied</button>
+                                    </div>
+                                }
+
+                                {buttonState === 'saved' && <div>
+                                    <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
+                                    <Modal _id={props._id} />
+                                </div>
+                                }
                             </div>
 
                         )}

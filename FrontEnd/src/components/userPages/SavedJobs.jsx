@@ -37,6 +37,7 @@ function SavedJobs() {
             postedDate={props.date}
             Info={props.description}
             _id={props._id}
+            type={props.type}
             page="save"
         />
     }
