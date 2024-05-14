@@ -120,15 +120,19 @@ function Card(props) {
                                 {(buttonState === 'saved') &&
                                     <div>
                                         <button className="btn btn-warning btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
-                                        <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
-                                        <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
+
+                                        <Modal effect={false}/>
+
                                     </div>
                                 }
                                 {buttonState === 'applied' && <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
+
                                 {buttonState === 'empty' &&
                                     <div>
                                         <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
-                                        <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
+                                        <Modal effect={false}/>
+
+
                                     </div>
                                 }
 

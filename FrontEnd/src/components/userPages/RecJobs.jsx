@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Card from "./Cards";
 import { borderRadius } from "@mui/system";
 
+
 function RecJobs() {
     const [jobData, setJob] = useState([]);
     const token=localStorage.getItem('token');
@@ -46,7 +47,8 @@ function RecJobs() {
     return (
         <div>
             <Navbar />
-            
+
+
             <div className="row">
                 <div className="col-md-4">
                     <div style={styles.box}></div>
