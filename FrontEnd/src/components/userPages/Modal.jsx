@@ -21,7 +21,6 @@ function Modal(props) {
       },
       body: JSON.stringify({ job_id: props._id })
     });
-    setButtonState("saved");
 
   }
 

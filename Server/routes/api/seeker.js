@@ -72,7 +72,7 @@ router.post('/savedJobs', fetchuser, async (req, res) => {
 
         }
 
-        res.send("HI")
+        res.send("Saved Job")
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

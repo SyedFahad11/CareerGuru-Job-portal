@@ -7,7 +7,10 @@ const SavedJobs = new Schema({
 
     },
     arr: [{
-        job_id: String,
+        job_id: {
+            type: String,
+            unique: true
+        }
     }],
     date: {
         type: Date,

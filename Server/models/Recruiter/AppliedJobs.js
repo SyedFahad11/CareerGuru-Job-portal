@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose;
 
-
 const AppliedJobs = new Schema({
     _id: {
         type: String,
@@ -18,6 +17,6 @@ const AppliedJobs = new Schema({
         default: Date.now
     },
 });
-const seekerAppliedJobs = mongoose.model('seekerAppliedJobs', AppliedJobs);
+const recJobsStats = mongoose.model('recJobsStats', AppliedJobs);
 
-module.exports = seekerAppliedJobs;
+module.exports = recJobsStats ;
