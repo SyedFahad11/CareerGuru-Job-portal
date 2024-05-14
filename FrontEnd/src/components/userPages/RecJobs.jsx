@@ -9,7 +9,7 @@ function RecJobs() {
     const token=localStorage.getItem('token');
 
     const getInfo = async () => {
-        const response = await fetch("/api/jobs/availableJobs", {
+        const response = await fetch("/api/seek/availableJobs", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ function RecJobs() {
                     postedDate={props.date}
                     type={props.type}
                     _id={props._id}
-                    delete="false"
+                    page="rec"
                 />
             </div>
         );

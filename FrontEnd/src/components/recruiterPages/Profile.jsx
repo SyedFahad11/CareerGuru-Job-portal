@@ -17,11 +17,11 @@ function Profile() {
         file: []
     })
 
-    
+
 
     const getUser = async () => {
 
-        const userInfo = await fetch("http://localhost:5000/api/auth/getRecruiterDetails", {
+        const userInfo = await fetch("http://localhost:5000/auth/getRecruiterDetails", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ function Profile() {
         console.log(e.target.userName.value)
         const { userName, email, password, skills, job, pay, qualification } = e.target
 
-        const postData = await fetch('http://localhost:5000/api/auth/updateuser', {
+        const postData = await fetch('http://localhost:5000/auth/updateuser', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

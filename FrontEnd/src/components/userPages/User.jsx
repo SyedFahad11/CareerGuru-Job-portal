@@ -12,7 +12,7 @@ function User() {
     }, [])
     const getUser = async () => {
         const token = localStorage.getItem("token");
-        const userInfo = await fetch("http://localhost:5000/api/auth/getJobSeekerDetails", {
+        const userInfo = await fetch("http://localhost:5000/api/seek/getJobSeekerDetails", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ function User() {
             }
         });
         const Info = await userInfo.json()
-        
+
         setData(Info)
     }
 
@@ -30,7 +30,7 @@ function User() {
     </div>
 
     else {
-        
+
             return (
                 <div>
                     <Navbar />
@@ -46,7 +46,7 @@ function User() {
 
             );
         }
-    
+
 
 }
 

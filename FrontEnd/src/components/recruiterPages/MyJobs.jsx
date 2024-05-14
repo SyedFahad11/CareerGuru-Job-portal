@@ -7,7 +7,7 @@ function RecJobs() {
     const [jobData,setJob]=useState([]);
     const token=localStorage.getItem('token')
     const getInfo=async()=>{
-        const response= await fetch("/api/jobs/myPostedJobs",{
+        const response= await fetch("/api/rec/myPostedJobs",{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

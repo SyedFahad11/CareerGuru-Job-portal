@@ -17,7 +17,7 @@ function Card(props) {
 
 
     const handleDelete = async (e) => {
-        const response = await fetch('http://localhost:5000/api/jobs/deleteJob', {
+        const response = await fetch('http://localhost:5000/api/rec/deleteJob', {
             method: 'Post',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function Card(props) {
     const updateJobs=async(e)=>{
         e.preventDefault();
         const {title,Salary,Recruiter,WorkingHours,Info,Contact}=e.target;
-        const response = await fetch("http://localhost:5000/api/jobs/updateJob", {
+        const response = await fetch("http://localhost:5000/api/rec/updateJob", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

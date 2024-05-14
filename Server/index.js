@@ -14,8 +14,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-app.use('/api/auth',require("./routes/authRoutes"));
-app.use('/api/jobs',require("./routes/apiRoutes"));
+app.use('/auth',require("./routes/auth/authRoutes"));
+app.use('/api/rec',require("./routes/api/recruiter"));
+app.use('/api/seek',require("./routes/api/seeker"));
 
 connectToMongo();
 

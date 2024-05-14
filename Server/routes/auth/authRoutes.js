@@ -1,11 +1,11 @@
 
 const express = require('express');
-const User = require('../models/User');
-const Recruiter = require('../models/Recruiter');
+const User = require('../../models/User');
+const Recruiter = require('../../models/Recruiter');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
-var fetchuser = require('../middleware/fetchuser');
+var fetchuser = require('../../middleware/fetchuser');
 
 const JWT_SECRET = 'Harryisagoodb$oy';
 

@@ -3,15 +3,15 @@ import Modal from "./Modal";
 function Card(props) {
     const token = localStorage.getItem('token');
     const [expanded, setExpanded] = useState(false);
-    const [buttonState,setButtonState]=useState(props.type);
+    const [buttonState, setButtonState] = useState(props.type);
 
     const handleToggleDescription = () => {
         setExpanded(!expanded);
     };
 
     const handleSave = async (e) => {
-        e.target.innerHTML = 'Saved';
-        const response = await fetch('http://localhost:5000/api/jobs/savedJobs', {
+
+        const response = await fetch('http://localhost:5000/api/seek/savedJobs', {
             method: 'Post',
             headers: {
                 'auth-token': token,
@@ -24,7 +24,7 @@ function Card(props) {
     };
 
     const handleDelete = async (e) => {
-        const response = await fetch('http://localhost:5000/api/jobs/savedJobs/delete', {
+        const response = await fetch('http://localhost:5000/api/seek/savedJobs/delete', {
             method: 'Post',
             headers: {
                 'auth-token': token,
@@ -33,6 +33,15 @@ function Card(props) {
             body: JSON.stringify({ job_id: props._id })
         });
         setButtonState("empty");
+
+        const parentDiv = e.target.closest('.card'); // Assuming the card has a class 'card'
+        if (parentDiv) {
+            await parentDiv.remove();
+        } else {
+            console.error("Parent card element not found");
+        }
+
+
     };
 
     const handleApply = async (e) => {
@@ -115,22 +124,23 @@ function Card(props) {
                             </div>
                         </div>
 
-                        {props.delete === 'false' ? (
+                        {props.page === 'rec' && (
                             <div style={styles.buttonGroup}>
                                 {(buttonState === 'saved') &&
                                     <div>
                                         <button className="btn btn-warning btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
 
-                                        <Modal effect={false}/>
+                                        <Modal effect={false} />
 
                                     </div>
                                 }
-                                {buttonState === 'applied' && <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
+                                {buttonState === 'applied' &&
+                                    <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
 
                                 {buttonState === 'empty' &&
                                     <div>
                                         <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
-                                        <Modal effect={false}/>
+                                        <Modal effect={false} />
 
 
                                     </div>
@@ -138,11 +148,14 @@ function Card(props) {
 
 
                             </div>
-                        ) : (
+                        )}
+
+                        {props.page === 'save' && (
                             <div style={styles.buttonGroup}>
                                 <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
-                                <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
+                                <Modal />
                             </div>
+
                         )}
                     </div>
                 </div>

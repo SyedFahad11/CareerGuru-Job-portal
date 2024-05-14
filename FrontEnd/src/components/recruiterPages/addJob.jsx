@@ -7,7 +7,7 @@ function AddJob() {
     var handleSubmit = async (e) => {
         e.preventDefault();
         const { title,location, salary, description,category, contractType} = e.target;
-        const response = await fetch("http://localhost:5000/api/jobs/addJob", {
+        const response = await fetch("http://localhost:5000/api/rec/addJob", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

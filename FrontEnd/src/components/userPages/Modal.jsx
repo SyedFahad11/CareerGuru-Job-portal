@@ -6,6 +6,13 @@ function Modal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const content=e.target.description.value;
+    console.log(content)
+
+  }
+
   return (
     <>
       <button className="btn btn-success btn-sm" onClick={handleShow} style={styles.actionButton}>
@@ -19,9 +26,9 @@ function Modal(props) {
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content" style={styles.modalContent}>
             <div className="modal-header">
-              <h5 className="modal-title" id="modal-title">
-                Modal Title
-              </h5>
+              <h6 className="modal-title" id="modal-title">
+                Write SOP
+              </h6>
               <button
                 type="button"
                 className="close"
@@ -32,20 +39,24 @@ function Modal(props) {
               </button>
             </div>
             <div className="modal-body">
-              Modal Content Goes Here
+              <form onSubmit={handleSubmit} className="form-signup">
+                <div className="form-group">
+                  <textarea
+                    className="form-control"
+                    id="description"
+                    name="description"
+                    rows="4" // Adjust the number of rows as needed
+                    placeholder="Write your Statement of Purpose"
+                    style={styles.textarea} // Add custom styles
+                  ></textarea>
+                </div>
+
+                <button className="btn btn-success" type="submit">
+                  Apply
+                </button>
+              </form>
             </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleClose}
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save Changes
-              </button>
-            </div>
+
           </div>
         </div>
       </div>
@@ -74,7 +85,12 @@ const styles = {
   actionButton: {
     padding: '8px 20px',
     marginLeft: '10px',
-},
+  },
+  textarea: {
+    resize: 'vertical', // Allow vertical resizing
+    minHeight: '100px', // Set a minimum height
+    maxHeight: '300px', // Set a maximum height (optional)
+  },
 };
 
 export default Modal;

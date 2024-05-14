@@ -19,7 +19,7 @@ function Profile() {
 
     const getUser = async () => {
 
-        const userInfo = await fetch("http://localhost:5000/api/auth/getJobSeekerDetails", {
+        const userInfo = await fetch("http://localhost:5000/auth/getJobSeekerDetails", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ function Profile() {
         console.log(e.target.userName.value)
         const { userName, email, password, skills, job, pay, qualification } = e.target
 
-        const postData = await fetch('http://localhost:5000/api/auth/updateJobSeekerDetails', {
+        const postData = await fetch('http://localhost:5000/auth/updateJobSeekerDetails', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -209,7 +209,7 @@ export default Profile
                             <div classNameName="row">
                                <label classNameName="form-control">Name</label>
                                 <input classNameName="form-control m-1 bottom" type="text" name="email"  placeholder=" Name" value={data.userName} />
-                                
+
                             </div>
 
 
@@ -269,7 +269,7 @@ export default Profile
                 </div>
 
             </div>
- 
+
          </div>
     );
  */}

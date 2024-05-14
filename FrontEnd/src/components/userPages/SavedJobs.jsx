@@ -8,7 +8,7 @@ function SavedJobs() {
     const token=localStorage.getItem('token')
 
     const getInfo=async()=>{
-        const response= await fetch("/api/jobs/savedJobs",{
+        const response= await fetch("/api/seek/savedJobs",{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,19 +37,42 @@ function SavedJobs() {
             postedDate={props.date}
             Info={props.description}
             _id={props._id}
-            delete="true"
-            />
+            page="save"
+        />
     }
 
 
     return (
         <div>
             <Navbar/>
-            <div className="row">{jobData.map(AddEntries)}</div>
+            <div className="row">
+                <div className="col-md-4">
+                    <div style={styles.box}></div>
+                </div>
+                <div className="col-md-6">
+                    <div style={styles.cards}>
+                        {jobData.map(AddEntries)}
+                    </div>
+                </div>
+            </div>
         </div>
 
 
 
     );
+}
+const styles = {
+    box: {
+        marginTop: '20px',
+        marginLeft: '20px',
+        width: '400px',
+        height: '1000px',
+        backgroundColor: 'white',
+        borderRadius: '15px',
+
+    },
+    cards: {
+        margin: 'auto'
+    }
 }
 export default SavedJobs;
