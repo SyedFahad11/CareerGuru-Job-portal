@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import Modal from "./Modal";
 function Card(props) {
     const token = localStorage.getItem('token');
     const [expanded, setExpanded] = useState(false);
+    const [buttonState,setButtonState]=useState(props.type);
 
     const handleToggleDescription = () => {
         setExpanded(!expanded);
@@ -18,6 +19,7 @@ function Card(props) {
             },
             body: JSON.stringify({ job_id: props._id })
         });
+        setButtonState("saved");
 
     };
 
@@ -30,11 +32,17 @@ function Card(props) {
             },
             body: JSON.stringify({ job_id: props._id })
         });
+        setButtonState("empty");
     };
 
-    const handleApply = () => { };
+    const handleApply = async (e) => {
+
+        setButtonState("applied");
+    };
+
 
     return (
+
         <div id={props._id} >
 
 
@@ -109,14 +117,15 @@ function Card(props) {
 
                         {props.delete === 'false' ? (
                             <div style={styles.buttonGroup}>
-                                {(props.type === 'saved') &&
+                                {(buttonState === 'saved') &&
                                     <div>
-                                        <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
+                                        <button className="btn btn-warning btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
                                         <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
+                                        <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
                                     </div>
                                 }
-                                {props.type === 'applied' && <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
-                                {props.type === 'empty' &&
+                                {buttonState === 'applied' && <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
+                                {buttonState === 'empty' &&
                                     <div>
                                         <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
                                         <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
