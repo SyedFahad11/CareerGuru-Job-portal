@@ -15,7 +15,7 @@ const JobsSchema = new Schema({
     salary:{
         type: String,
         required: true
-        
+
     },
     postedBy:{
         type: String,
@@ -38,7 +38,8 @@ const JobsSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    
+
   });
   const Jobs = mongoose.model('jobs', JobsSchema);
   module.exports = Jobs;
+

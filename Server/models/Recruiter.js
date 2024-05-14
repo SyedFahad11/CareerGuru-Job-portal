@@ -15,6 +15,10 @@ const RecruiterSchema = new Schema({
         type: String,
         required: true
     },
+    companyName:{
+        type: String,
+        required: true
+    },
     date:{
         type: Date,
         default: Date.now

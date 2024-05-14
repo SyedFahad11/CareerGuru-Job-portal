@@ -13,28 +13,29 @@ function RecJobs() {
                 'Content-Type': 'application/json',
                 'auth-token':token
 
-            }         
+            }
         })
         const json= await response.json()
+        console.log(json);
         setJob(json)
-        
+
     }
     //getInfo()
-    useEffect(()=>{      
+    useEffect(()=>{
         getInfo()
     },[])
 
 
     function AddEntries(props){
-        
-        return <Card 
+
+        return <Card
             title={props.title}
             Salary= {props.salary}
             Recruiter={props.postedBy}
             WorkingHours={props.workingHours}
             postedDate={props.date}
-            Info={props.description} 
-            _id={props._id} 
+            Info={props.description}
+            _id={props._id}
             Contact={props.contact}
             delete="false"
             />
@@ -44,7 +45,9 @@ function RecJobs() {
     return (
         <div>
             <Navbar/>
-            <div>{jobData.map(AddEntries)}</div>
+            {jobData.length ===0 ? <h4>No Posted Jobs</h4>:
+                <div>{jobData.map(AddEntries)}</div>
+            }
         </div>
 
 

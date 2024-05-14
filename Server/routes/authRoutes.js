@@ -9,21 +9,21 @@ var fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = 'Harryisagoodb$oy';
 
-// ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
+
 
 router.post('/createuser', [
   body('userName', 'Enter a valid name').isLength({ min: 3 }),
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'Password must be atleast 5 characters').isLength({ min: 5 }),
 ], async (req, res) => {
-  // If there are errors, return Bad request and the errors
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
   try {
-    // Check whether the user with this email exists already
+
     let user = await User.findOne({ email: req.body.email });
     let recruiter = await Recruiter.findOne({ email: req.body.email });
     if (user) {
@@ -33,7 +33,6 @@ router.post('/createuser', [
       return res.status(400).json({ error: "Sorry a user with this email already exists" })
     }
     var type = req.body.userType;
-    // Create a new user
     var data = {}
 
     if (type == 'recruiter') {
@@ -41,6 +40,7 @@ router.post('/createuser', [
         userName: req.body.userName,
         password: req.body.password,
         email: req.body.email,
+        companyName:req.body.companyName
       })
       data = {
         recruiter: {
@@ -183,7 +183,7 @@ router.post('/updateJobSeekerDetails', fetchuser, async (req, res) => {
   //find by id and delete user
   const userId = req.user.id;
   var user = await User.findById(userId);
-  
+
 
   console.log(user)
   const { userName, email, password, skills, job, pay, qualification } = req.body;

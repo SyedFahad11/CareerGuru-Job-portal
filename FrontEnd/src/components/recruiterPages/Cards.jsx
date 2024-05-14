@@ -6,16 +6,16 @@ import Popover from '@mui/material/Popover';
 function Card(props) {
     const navigate = useNavigate();
     const token = localStorage.getItem('token')
-   
+
     const [popOverData, setPopOverData] = useState({});
     const [cardData,setUpdatedData]=useState(props);
 
     useEffect(() => {
         setPopOverData(props)
     }, [])
-    
 
-    
+
+
     const handleDelete = async (e) => {
         const response = await fetch('http://localhost:5000/api/jobs/deleteJob', {
             method: 'Post',
@@ -50,8 +50,8 @@ function Card(props) {
             },
             body: JSON.stringify({
                 title: title.value,
-                salary: Salary.value, 
-                postedBy: Recruiter.value, 
+                salary: Salary.value,
+                postedBy: Recruiter.value,
                 workingHours:WorkingHours.value,
                 description:Info.value,
                 contact:Contact.value
@@ -61,11 +61,11 @@ function Card(props) {
         setUpdatedData(popOverData);
     }
     const OnChange=(e)=>{
-        
+
         setPopOverData({...popOverData,[e.target.name]:e.target.value})
 
     }
-   
+
 
 
     const open = Boolean(anchorEl);
@@ -111,7 +111,7 @@ function Card(props) {
                         <div style={{}} >
                             <button className="btn btn-primary btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px", marginRight: "25px",maxWidth:"150px" }} onClick={handleUpdate} >Update</button>
 
-                            <button className="btn btn-danger btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px" ,maxWidth:"150px"}} onClick={handleDelete}>Delete</button></div> 
+                            <button className="btn btn-danger btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px" ,maxWidth:"150px"}} onClick={handleDelete}>Delete</button></div>
                             :
                         <div style={{}} >
                             <button className="btn btn-danger btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px", marginRight: "25px" }} onClick={handleDelete}>Delete</button>
@@ -136,7 +136,7 @@ function Card(props) {
                     vertical: 'top',
                     horizontal: 'center'
                 }}
-                
+
                 PaperProps={{
                     style: { width: '80%',height:'70%',marginTop:'10%',opacity:'90%' },
                 }}

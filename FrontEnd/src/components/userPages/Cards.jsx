@@ -34,7 +34,7 @@ function Card(props) {
     const handleApply = () => { };
 
     return (
-        <div id={props._id}>
+        <div id={props._id} >
 
 
             <div className="card-container" style={styles.cardContainer}>
@@ -126,9 +126,10 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '2%',
+
     },
     cardComponent: {
-        width: '50%',
+        width:'100%',
         borderRadius: "15px",
         backgroundColor: 'white',
         boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.1)',
