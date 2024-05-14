@@ -27,9 +27,9 @@ function RecJobs() {
             <div className="">
                 <Card
                     title={props.title}
+                    companyName={props.companyName}
                     Salary={props.salary}
-                    Recruiter={props.postedBy}
-                    WorkingHours={props.workingHours}
+
                     postedDate={props.date}
                     Info={props.description}
                     _id={props._id}

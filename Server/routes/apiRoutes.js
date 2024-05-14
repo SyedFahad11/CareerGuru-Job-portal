@@ -2,21 +2,26 @@ const express = require("express");
 const Jobs = require('../models/Jobs');
 const SavedJobs = require('../models/SavedJobs')
 const fetchuser = require('../middleware/fetchuser');
+const Recruiter = require("../models/Recruiter");
 
 const router = express.Router();
 
 //ROUTE:1 Add Jobs
-router.post("/addJob", fetchuser, (req, res) => {
+router.post("/addJob", fetchuser, async (req, res) => {
     try {
         // console.log(req.body);
-        const { title, salary, postedBy, workingHours, description, contact } = req.body;
+        const { title,location, salary, description,category, contractType} = req.body;
         const recId = req.user.id;
+        console.log(recId);
+        const {companyName}=await Recruiter.findOne({_id:recId});
+
+
         Jobs.create({
-            recId, title, salary, postedBy, workingHours, description, contact
+            recId, title, location,salary, description,category, contractType,companyName
         }, (err, res) => {
             if (err) {
                 console.log(err);
-                res
+                res.status(400).send("Error in Adding")
             }
             else console.log("Added Successfully")
         })

@@ -6,7 +6,7 @@ function AddJob() {
 
     var handleSubmit = async (e) => {
         e.preventDefault();
-        const { title, salary, postedBy, workingHours, description, contact } = e.target;
+        const { title,location, salary, description,category, contractType} = e.target;
         const response = await fetch("http://localhost:5000/api/jobs/addJob", {
             method: 'POST',
             headers: {
@@ -15,11 +15,12 @@ function AddJob() {
             },
             body: JSON.stringify({
                 title: title.value,
+                location:location.value,
                 salary: salary.value,
-                postedBy: postedBy.value,
-                workingHours: workingHours.value,
                 description: description.value,
-                contact: contact.value
+                category:category.value,
+                contractType:contractType.value
+
             })
         });
         const json = await response.json();
@@ -37,12 +38,12 @@ function AddJob() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="tag" className="form-label ">Location</label>
-                    <input type="text" className="form-control" name="salary" />
+                    <input type="text" className="form-control" name="location" required />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="tag" className="form-label ">Salary</label>
-                    <input type="text" className="form-control" name="salary" />
+                    <input type="text" className="form-control" name="salary" required />
                 </div>
 
 
@@ -84,7 +85,7 @@ function AddJob() {
                     <select name="contractType">
                         <option value="fullTime">Full Time</option>
                         <option value="partTime">Part Time</option>
-                        <option value="">{ }</option>
+                        <option value="intern">Intern</option>
 
                     </select>
                 </div>

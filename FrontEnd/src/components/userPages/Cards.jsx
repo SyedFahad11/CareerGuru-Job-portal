@@ -41,22 +41,27 @@ function Card(props) {
                 <div className="card text-left" style={styles.cardComponent}>
                     <div className="card-body">
                         <h5 className="card-title mb-3" style={styles.cardTitle}>{props.title}</h5>
+
                         <div className="row mb-2">
+                        <div className="col-md-6">
+                                <div className="row">
+                                    <h6 className="mb-0 text-muted ml-3">Company:</h6>
+                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>
+                                        {props.companyName}, <a href="https://www.arcesium.com/careers/" className="text-muted" style={{ color: "black" }}>Arcesium</a>
+                                    </h6>
+                                </div>
+                            </div>
+
                             <div className="col-md-6">
                                 <div className="row">
                                     <h6 className="mb-0 text-muted ml-3">Salary:</h6>
                                     <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>{props.Salary}</h6>
                                 </div>
                             </div>
-                            <div className="col-md-6">
-                                <div className="row">
-                                    <h6 className="mb-0 text-muted ml-3">Posted By:</h6>
-                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>
-                                        {props.Recruiter}, <a href="https://www.arcesium.com/careers/" className="text-muted" style={{ color: "black" }}>Arcesium</a>
-                                    </h6>
-                                </div>
-                            </div>
+
                         </div>
+
+
                         <div className="row mb-2">
                             <div className="col-md-6">
                                 <div className="row">
@@ -71,6 +76,8 @@ function Card(props) {
                                 </div>
                             </div>
                         </div>
+
+
                         <div className="ml-3 mb-3">
                             <div className="row">
                                 <h6 className="mb-0 text-muted">Description:</h6>
@@ -96,9 +103,6 @@ function Card(props) {
                                         <h6 className="font-weight-normal mb-0 text-muted">{props.Info}</h6>
                                     </div>
                                 }
-
-
-
                             </div>
                         </div>
 
