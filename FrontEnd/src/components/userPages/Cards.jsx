@@ -18,6 +18,7 @@ function Card(props) {
             },
             body: JSON.stringify({ job_id: props._id })
         });
+
     };
 
     const handleDelete = async (e) => {
@@ -43,19 +44,19 @@ function Card(props) {
                         <h5 className="card-title mb-3" style={styles.cardTitle}>{props.title}</h5>
 
                         <div className="row mb-2">
-                        <div className="col-md-6">
+                            <div className="col-md-6">
                                 <div className="row">
                                     <h6 className="mb-0 text-muted ml-3">Company:</h6>
                                     <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>
-                                        {props.companyName}, <a href="https://www.arcesium.com/careers/" className="text-muted" style={{ color: "black" }}>Arcesium</a>
+                                        {props.companyName}
                                     </h6>
                                 </div>
                             </div>
 
                             <div className="col-md-6">
                                 <div className="row">
-                                    <h6 className="mb-0 text-muted ml-3">Salary:</h6>
-                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>{props.Salary}</h6>
+                                    <h6 className="mb-0 text-muted ml-3">Location:</h6>
+                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>{props.location}</h6>
                                 </div>
                             </div>
 
@@ -65,8 +66,8 @@ function Card(props) {
                         <div className="row mb-2">
                             <div className="col-md-6">
                                 <div className="row">
-                                    <h6 className="mb-0 text-muted ml-3">Working Hours:</h6>
-                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>{props.WorkingHours}</h6>
+                                    <h6 className="mb-0 text-muted ml-3">Salary:</h6>
+                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" style={styles.salaryStyle}>{props.Salary}</h6>
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -108,12 +109,25 @@ function Card(props) {
 
                         {props.delete === 'false' ? (
                             <div style={styles.buttonGroup}>
-                                <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
-                                <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
+                                {(props.type === 'saved') &&
+                                    <div>
+                                        <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
+                                        <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
+                                    </div>
+                                }
+                                {props.type === 'applied' && <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
+                                {props.type === 'empty' &&
+                                    <div>
+                                        <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
+                                        <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
+                                    </div>
+                                }
+
+
                             </div>
                         ) : (
                             <div style={styles.buttonGroup}>
-                                <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Delete</button>
+                                <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
                                 <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Apply</button>
                             </div>
                         )}
@@ -133,7 +147,7 @@ const styles = {
 
     },
     cardComponent: {
-        width:'100%',
+        width: '100%',
         borderRadius: "15px",
         backgroundColor: 'white',
         boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.1)',
@@ -161,8 +175,8 @@ const styles = {
 
     // Expanded description
     expanded: {
-        overflow:'hidden',
-        whiteSpace:'normal',
+        overflow: 'hidden',
+        whiteSpace: 'normal',
     },
 };
 

@@ -1,8 +1,9 @@
 const express = require("express");
 const Jobs = require('../models/Jobs');
 const SavedJobs = require('../models/SavedJobs')
-const fetchuser = require('../middleware/fetchuser');
 const Recruiter = require("../models/Recruiter");
+const AppliedJobs = require('../models/AppliedJobs')
+const fetchuser = require('../middleware/fetchuser');
 
 const router = express.Router();
 
@@ -10,14 +11,14 @@ const router = express.Router();
 router.post("/addJob", fetchuser, async (req, res) => {
     try {
         // console.log(req.body);
-        const { title,location, salary, description,category, contractType} = req.body;
+        const { title, location, salary, description, category, contractType } = req.body;
         const recId = req.user.id;
         console.log(recId);
-        const {companyName}=await Recruiter.findOne({_id:recId});
+        const { companyName } = await Recruiter.findOne({ _id: recId });
 
 
         Jobs.create({
-            recId, title, location,salary, description,category, contractType,companyName
+            recId, title, location, salary, description, category, contractType, companyName
         }, (err, res) => {
             if (err) {
                 console.log(err);
@@ -51,14 +52,30 @@ router.get("/myPostedJobs", fetchuser, (req, res) => {
     }
 })
 
-router.get("/availableJobs", (req, res) => {
+router.get("/availableJobs", fetchuser, async (req, res) => {
     try {
-        const availableJ = Jobs.find((err, data) => {
-            if (err) console.log(err)
-            else {
-                res.json(data)
+
+        const availableJobs = await Jobs.find();
+
+        const user_id = req.user.id;
+
+        const appliedJobIds = await AppliedJobs.distinct('arr.job_id', { _id: user_id });
+
+        const savedJobIds = await SavedJobs.distinct('arr.job_id', { _id: user_id });
+
+
+        // Iterate through available jobs and add 'type' field
+        const jobsWithTypes = availableJobs.map(job => {
+            let type = 'empty';
+            if (appliedJobIds.includes(job._id.toString())) {
+                type = 'applied';
+            } else if (savedJobIds.includes(job._id.toString())) {
+                type = 'saved';
             }
+            return { ...job.toObject(), type };
         });
+
+        res.json(jobsWithTypes);
 
     } catch (error) {
         console.error(error.message);
@@ -181,11 +198,11 @@ router.post('/deleteJob', async (req, res) => {
         const jobId = req.headers.jobid;
         console.log(jobId);
 
-        var response=Jobs.findByIdAndDelete(jobId,(err,res)=>{
-            if(err){
+        var response = Jobs.findByIdAndDelete(jobId, (err, res) => {
+            if (err) {
                 console.log(err);
             }
-            else{
+            else {
                 console.log(res);
             }
 

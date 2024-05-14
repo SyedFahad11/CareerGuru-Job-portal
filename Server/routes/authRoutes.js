@@ -53,10 +53,6 @@ router.post('/createuser', [
         userName: req.body.userName,
         password: req.body.password,
         email: req.body.email,
-        skills: req.body.skills,
-        job: req.body.job,
-        pay: req.body.pay,
-        qualification: req.body.qualification
       });
       data = {
         user: {

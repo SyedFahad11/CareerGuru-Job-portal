@@ -5,12 +5,14 @@ import { borderRadius } from "@mui/system";
 
 function RecJobs() {
     const [jobData, setJob] = useState([]);
+    const token=localStorage.getItem('token');
 
     const getInfo = async () => {
         const response = await fetch("/api/jobs/availableJobs", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'auth-token':token
             }
         });
         const json = await response.json();
@@ -27,11 +29,13 @@ function RecJobs() {
             <div className="">
                 <Card
                     title={props.title}
-                    companyName={props.companyName}
+                    location={props.location}
                     Salary={props.salary}
-
-                    postedDate={props.date}
                     Info={props.description}
+                    contract={props.contractType}
+                    companyName={props.companyName}
+                    postedDate={props.date}
+                    type={props.type}
                     _id={props._id}
                     delete="false"
                 />
@@ -42,14 +46,7 @@ function RecJobs() {
     return (
         <div>
             <Navbar />
-            {/*  <div className="">
-                    <div style={styles.box}> </div>
-
-                    <div style={styles.cards}>
-                        {jobData.map(AddEntries)}
-                    </div>
-
-            </div> */}
+            
             <div className="row">
                 <div className="col-md-4">
                     <div style={styles.box}></div>

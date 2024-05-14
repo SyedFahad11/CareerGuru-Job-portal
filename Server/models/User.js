@@ -15,19 +15,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    job:{
-        type: String
-    },
-    skills:{
-        type: String
-    },
-    pay:{
-        type: String
-
-    },
-    qualification:{
-        type: String
-    },
+    
     date:{
         type: Date,
         default: Date.now
