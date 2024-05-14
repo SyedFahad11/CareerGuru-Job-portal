@@ -23,11 +23,11 @@ function Navbar() {
                             <a className="nav-link" href="/user/RecJobs">Recommended Jobs </a>
                         </li>
                         <li style={styles.navItem}>
-                            <a className="nav-link" href="/user/SavJobs" >Saved Jobs</a>
+                            <a className="nav-link" href="/user/SavedJobs" >Saved Jobs</a>
                         </li>
 
                         <li style={styles.navItem}>
-                            <a className="nav-link" >Applied Jobs</a>
+                            <a className="nav-link" href="/user/AppliedJobs">Applied Jobs</a>
                         </li>
                     </ul>
                     <ul className="navbar-nav nav-ul">

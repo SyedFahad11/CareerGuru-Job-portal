@@ -11,21 +11,23 @@ import Recruiter from "./components/recruiterPages/Recruiter"
 import AddJob from "./components/recruiterPages/addJob";
 import ProfileRecruiter from "./components/recruiterPages/Profile";
 import MyJobs from "./components/recruiterPages/MyJobs";
+import AppliedJobs from "./components/userPages/AppliedJobs";
 function App() {
-  
+
    return (
     <div>
       <Routes>
         {/* <Route path='/' element={<User />}/> */}
-      
+
           <Route path='/' element={<Landing />} />
           <Route path='signin' element={<SignIn />} />
           <Route path='register' element={<Register />} />
           <Route path='user' element={<User />} />
           <Route path='user/profile' element={<ProfileUser />} />
           <Route path='user/RecJobs' element={<RecJobs/>} />
-          <Route path='user/SavJobs' element={<SavedJobs/>} />
-          
+          <Route path='user/SavedJobs' element={<SavedJobs/>} />
+          <Route path='user/AppliedJobs' element={<AppliedJobs/>} />
+
           <Route path='recruiter' element={<Recruiter/>} />
           <Route path='recruiter/addJobs' element={<AddJob/>} />
           <Route path='recruiter/profile' element={<ProfileRecruiter/>} />

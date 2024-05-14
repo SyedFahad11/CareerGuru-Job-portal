@@ -9,7 +9,7 @@ function RecJobs() {
     const token=localStorage.getItem('token');
 
     const getInfo = async () => {
-        const response = await fetch("/api/seek/availableJobs", {
+        const response = await fetch("http://localhost:5000/api/seek/availableJobs", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

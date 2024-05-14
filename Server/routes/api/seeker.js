@@ -5,6 +5,7 @@ const SeekerAppliedJobs = require('../../models/Seeker/AppliedJobs')
 const RecruiterJobs = require('../../models/Recruiter/AppliedJobs')
 const Application = require('../../models/Application')
 const fetchuser = require('../../middleware/fetchuser');
+const seekerAppliedJobs = require("../../models/Seeker/AppliedJobs");
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
         const user_id = req.user.id;
 
-        const appliedJobIds = await AppliedJobs.distinct('arr.job_id', { _id: user_id });
+        const appliedJobIds = await SeekerAppliedJobs.distinct('arr.job_id', { _id: user_id });
 
         const savedJobIds = await SavedJobs.distinct('arr.job_id', { _id: user_id });
 
@@ -189,7 +190,7 @@ router.post('/applyJob', fetchuser, async (req, res) => {
 router.get('/appliedJobs', fetchuser, async (req, res) => {
     try {
 
-        const seekerId=req.user.id;
+        const seekerId = req.user.id;
         const appliedJobsData = await SeekerAppliedJobs.findById(seekerId);
 
         const Array = []
@@ -197,9 +198,9 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
         const asyncResolution = await Promise.all(appliedJobsData.arr.map(async (obj) => {
             const applicationData = await Application.findById(obj._id);
 
-            const jobData=await Jobs.findById(applicationData.jobId);
+            const jobData = await Jobs.findById(applicationData.jobId);
 
-            const data={...applicationData._doc,...jobData._doc};
+            const data = { ...applicationData._doc, ...jobData._doc };
 
             Array.push(data)
 
@@ -214,6 +215,41 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
     }
 
 })
+router.delete('/delete', async (req, res) => {
+    try {
+        await Application.deleteMany({})
+            .then((result) => {
+                console.log(`${result.deletedCount} documents deleted.`);
+            })
+            .catch((error) => {
+                console.error('Error deleting documents:', error);
+            });
+        await seekerAppliedJobs.deleteMany({})
+            .then((result) => {
+                console.log(`${result.deletedCount} documents deleted.`);
+            })
+            .catch((error) => {
+                console.error('Error deleting documents:', error);
+            });
+        await RecruiterJobs.deleteMany({})
+            .then((result) => {
+                console.log(`${result.deletedCount} documents deleted.`);
+            })
+            .catch((error) => {
+                console.error('Error deleting documents:', error);
+            });
+
+        res.send("Deleted Successfully")
+
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+
+    }
+}
+)
 
 
 
