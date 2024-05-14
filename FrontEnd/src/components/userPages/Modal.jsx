@@ -11,16 +11,16 @@ function Modal(props) {
     e.preventDefault();
     const content = e.target.description.value;
     console.log(content)
-    console.log(props.jobId)
+    console.log(props._id)
     console.log(token)
-    const response = await fetch('http://localhost:5000/api/seek/applyJob', {
+   /*  const response = await fetch('http://localhost:5000/api/seek/applyJob', {
       method: 'Post',
       headers: {
         'auth-token': token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ job_id: props._id })
-    });
+    }); */
 
   }
 

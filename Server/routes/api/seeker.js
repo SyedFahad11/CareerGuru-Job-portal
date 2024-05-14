@@ -1,7 +1,9 @@
 const express = require("express");
 const Jobs = require('../../models/Jobs');
 const SavedJobs = require('../../models/Seeker/SavedJobs')
-const AppliedJobs = require('../../models/Seeker/AppliedJobs')
+const SeekerAppliedJobs = require('../../models/Seeker/AppliedJobs')
+const RecruiterAppliedJobs = require('../../models/Recruiter/AppliedJobs')
+const Application=require('../../models/Application')
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();
@@ -128,21 +130,31 @@ router.post('/savedJobs/delete', fetchuser, async (req, res) => {
 router.post('/applyJob', fetchuser, async (req, res) => {
     try {
 
-
-        const userId = req.user.id;
+        const seekerId = req.user.id;
         const jobId = req.body.job_id;
 
-        const application=await application.create({
-            
-        })
+        const job = await Jobs.findById(jobId);
+        const recId=job.recId;
 
-        let user = await AppliedJobs.findOne({ _id: userId });
-        if (user) {
+        var application=await Application.findOne({recId,seekerId,jobId});
+        if(application.length===0){
+            const sop=req.body.sop;
+            const status="Applied";
+            application=await Application.create({
+                recId,seekerId,jobId,sop,status
+            });
+        }
+        const applicationId=application.id;
+
+
+
+        let recruiter = await RecruiterAppliedJobs.findOne({ _id: recId });
+        if (recruiter) {
 
             let foundApplication = false;
 
-            user.arr.forEach((obj) => {
-                if (obj.job_id === jobId) foundApplication = true;
+            recruiter.arr.forEach((obj) => {
+                if (obj.application_id === jobId) foundApplication = true;
                 console.log(obj)
             })
 
@@ -163,7 +175,7 @@ router.post('/applyJob', fetchuser, async (req, res) => {
 
         }
 
-        res.send("Saved Job")
+        //res.send("Applied Job")
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

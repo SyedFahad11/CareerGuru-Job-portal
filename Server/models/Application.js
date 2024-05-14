@@ -8,6 +8,9 @@ const AppliedJobs = new Schema({
   seekerId:{
     type:String
   },
+  jobId:{
+    type:String
+  },
   sop: {
     type: String,
   },
