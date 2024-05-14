@@ -6,7 +6,7 @@ import Card from "./Cards";
 function SavedJobs() {
     const [jobData,setJob]=useState([]);
     const token=localStorage.getItem('token')
-    
+
     const getInfo=async()=>{
         const response= await fetch("/api/jobs/savedJobs",{
             method: 'GET',
@@ -14,29 +14,30 @@ function SavedJobs() {
                 'Content-Type': 'application/json',
                 'auth-token': token
 
-            }         
+            }
         })
         const json= await response.json()
         setJob(json)
-        
+
     }
     //getInfo()
-    useEffect(()=>{      
+    useEffect(()=>{
+        console.log("HERE")
         getInfo()
     },[])
 
 
     function AddEntries(props){
-        
-        return <Card 
+
+        return <Card
             title={props.title}
             Salary= {props.salary}
             Recruiter={props.postedBy}
             WorkingHours={props.workingHours}
             postedDate={props.date}
-            Info={props.description} 
+            Info={props.description}
             _id={props._id}
-            delete="true" 
+            delete="true"
             />
     }
 
