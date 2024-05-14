@@ -129,71 +129,55 @@ router.post('/savedJobs/delete', fetchuser, async (req, res) => {
 
 router.post('/applyJob', fetchuser, async (req, res) => {
     try {
-
         const seekerId = req.user.id;
         const jobId = req.body.job_id;
 
         const job = await Jobs.findById(jobId);
         const recId = job.recId;
 
-        var application = await Application.findOne({ recId, seekerId, jobId });
+        // Check if the application already exists
+        let application = await Application.findOne({ recId, seekerId, jobId });
 
-        if (application===null) {
+        if (application === null) {
             const sop = req.body.sop;
             const status = "Pending";
-            application = await Application.create({
-                recId, seekerId, jobId, sop, status
-            });
+            const message = null;
+            application = await Application.create({ recId, seekerId, jobId, sop, status, message });
+        } else {
+            res.status(400).send("Application Already Present");
+            return;
         }
-        else {
 
-            res.status(400).send();
-            return ;
-        }
         const applicationId = application._id;
 
+        // Array to store promises for all database operations
+        const promises = [];
 
-        console.log("HERE");
-
+        // Update SeekerAppliedJobs collection
         let seeker = await SeekerAppliedJobs.findOne({ _id: seekerId });
         if (seeker) {
-
-            const newObject = { _id: applicationId }
-            const response = await SeekerAppliedJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
-
-        }
-        else {
-            const response = await SeekerAppliedJobs.create({
-                _id: seekerId,
-                arr: [{
-                    _id: applicationId
-                }]
-            })
-
+            const newObject = { _id: applicationId };
+            promises.push(SeekerAppliedJobs.findByIdAndUpdate({ _id: seekerId }, { $push: { arr: newObject } }, { new: true }));
+        } else {
+            promises.push(SeekerAppliedJobs.create({ _id: seekerId, arr: [{ _id: applicationId }] }));
         }
 
-
+        // Update RecruiterJobs collection
         let recruiter = await RecruiterJobs.findOne({ _id: recId });
         if (recruiter) {
-
-            const newObject = { _id: applicationId }
-            const response = await RecruiterJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
-
-        }
-        else {
-            const response = await RecruiterJobs.create({
-                _id: recId,
-                arr: [{
-                    _id: applicationId
-                }]
-            })
-
+            const newObject = { _id: applicationId };
+            promises.push(RecruiterJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true }));
+        } else {
+            promises.push(RecruiterJobs.create({ _id: recId, arr: [{ _id: applicationId }] }));
         }
 
-        res.send("Applied Job")
+        // Wait for all database operations to complete
+        await Promise.all(promises);
 
+        // Send response
+        res.send("Applied Job");
     } catch (error) {
-        console.error(error.message);
+        console.error(error);
         res.status(500).send("Internal Server Error");
     }
 
@@ -207,12 +191,13 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
         const Array = []
         //Array.push({salary:"56"})
         const asyncResolution = await Promise.all(appliedJobsData.arr.map(async (obj) => {
-            const applicationData = await Application.findById(obj.application_id);
-            console.log(obj._id)
-            console.log(applicationData);
-            /* const jobId=applicationData.jobId;
-            console.log(jobId) */
-            Array.push(applicationData)
+            const applicationData = await Application.findById(obj._id);
+
+            const jobData=await Jobs.findById(applicationData.jobId);
+
+            const data={...applicationData._doc,...jobData._doc};
+
+            Array.push(data)
 
         })
         )
