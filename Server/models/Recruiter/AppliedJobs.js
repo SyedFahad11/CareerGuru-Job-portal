@@ -7,7 +7,7 @@ const AppliedJobs = new Schema({
 
     },
     arr: [{
-        application_id: {
+        _id: {
             type: String,
             unique: true
         },

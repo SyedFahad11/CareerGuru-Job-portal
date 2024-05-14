@@ -146,18 +146,19 @@ router.post('/applyJob', fetchuser, async (req, res) => {
             });
         }
         else {
-            console.log(application);
-            res.status(400).send("Application Already Present");
+
+            res.status(400).send();
             return ;
         }
-        const applicationId = application.id;
+        const applicationId = application._id;
+
 
         console.log("HERE");
 
         let seeker = await SeekerAppliedJobs.findOne({ _id: seekerId });
         if (seeker) {
 
-            const newObject = { application_id: applicationId }
+            const newObject = { _id: applicationId }
             const response = await SeekerAppliedJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
 
         }
@@ -165,7 +166,7 @@ router.post('/applyJob', fetchuser, async (req, res) => {
             const response = await SeekerAppliedJobs.create({
                 _id: seekerId,
                 arr: [{
-                    application_id: applicationId
+                    _id: applicationId
                 }]
             })
 
@@ -175,7 +176,7 @@ router.post('/applyJob', fetchuser, async (req, res) => {
         let recruiter = await RecruiterJobs.findOne({ _id: recId });
         if (recruiter) {
 
-            const newObject = { application_id: applicationId }
+            const newObject = { _id: applicationId }
             const response = await RecruiterJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
 
         }
@@ -183,7 +184,7 @@ router.post('/applyJob', fetchuser, async (req, res) => {
             const response = await RecruiterJobs.create({
                 _id: recId,
                 arr: [{
-                    application_id: applicationId
+                    _id: applicationId
                 }]
             })
 
@@ -191,6 +192,33 @@ router.post('/applyJob', fetchuser, async (req, res) => {
 
         res.send("Applied Job")
 
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+router.get('/appliedJobs', fetchuser, async (req, res) => {
+    try {
+
+        const seekerId=req.user.id;
+        const appliedJobsData = await SeekerAppliedJobs.findById(seekerId);
+
+        const Array = []
+        //Array.push({salary:"56"})
+        const asyncResolution = await Promise.all(appliedJobsData.arr.map(async (obj) => {
+            const applicationData = await Application.findById(obj.application_id);
+            console.log(obj._id)
+            console.log(applicationData);
+            /* const jobId=applicationData.jobId;
+            console.log(jobId) */
+            Array.push(applicationData)
+
+        })
+        )
+
+
+        res.send(Array)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
