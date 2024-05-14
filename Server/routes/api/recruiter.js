@@ -1,6 +1,6 @@
 const express = require("express");
 const Jobs = require('../../models/Jobs');
-const Recruiter = require("../../models/Recruiter");
+const Recruiter = require("../../models/Recruiter/User");
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();

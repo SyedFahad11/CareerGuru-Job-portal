@@ -1,7 +1,7 @@
 const express = require("express");
 const Jobs = require('../../models/Jobs');
-const SavedJobs = require('../../models/SavedJobs')
-const AppliedJobs = require('../../models/AppliedJobs')
+const SavedJobs = require('../../models/Seeker/SavedJobs')
+const AppliedJobs = require('../../models/Seeker/AppliedJobs')
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();

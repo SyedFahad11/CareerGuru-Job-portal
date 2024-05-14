@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 
 function Modal(props) {
-  const [show, setShow] = useState(props.effect);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const token = localStorage.getItem('token');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const content=e.target.description.value;
+    const content = e.target.description.value;
     console.log(content)
+    console.log(props.jobId)
+    console.log(token)
+    const response = await fetch('http://localhost:5000/api/seek/applyJob', {
+      method: 'Post',
+      headers: {
+        'auth-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ job_id: props._id })
+    });
+    setButtonState("saved");
 
   }
 

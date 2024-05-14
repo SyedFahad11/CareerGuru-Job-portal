@@ -130,7 +130,7 @@ function Card(props) {
                                     <div>
                                         <button className="btn btn-warning btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
 
-                                        <Modal effect={false} />
+                                        <Modal  jobId={props._id}/>
 
                                     </div>
                                 }
@@ -140,7 +140,7 @@ function Card(props) {
                                 {buttonState === 'empty' &&
                                     <div>
                                         <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
-                                        <Modal effect={false} />
+                                        <Modal  _id={props._id} />
 
 
                                     </div>
@@ -153,7 +153,7 @@ function Card(props) {
                         {props.page === 'save' && (
                             <div style={styles.buttonGroup}>
                                 <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
-                                <Modal />
+                                <Modal  _id={props._id}/>
                             </div>
 
                         )}
