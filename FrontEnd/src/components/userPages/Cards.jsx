@@ -128,14 +128,14 @@ function Card(props) {
                             <div style={styles.buttonGroup}>
                                 {(buttonState === 'saved') &&
                                     <div>
-                                        <button className="btn btn-warning btn-sm" style={styles.actionButton} onClick={handleSave}>Saved</button>
+                                        <button className="btn btn-warning btn-sm" style={styles.actionButton}>Saved</button>
 
                                         <Modal  jobId={props._id}/>
 
                                     </div>
                                 }
                                 {buttonState === 'applied' &&
-                                    <button className="btn btn-success btn-sm" style={styles.actionButton} onClick={handleApply}>Applied</button>}
+                                    <button className="btn btn-success btn-sm" style={styles.actionButton}>Applied</button>}
 
                                 {buttonState === 'empty' &&
                                     <div>

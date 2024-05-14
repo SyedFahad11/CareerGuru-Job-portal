@@ -22,7 +22,6 @@ function AppliedJobs() {
     }
     //getInfo()
     useEffect(()=>{
-        console.log("HERE")
         getInfo()
     },[])
 

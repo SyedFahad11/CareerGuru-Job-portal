@@ -17,7 +17,14 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
         const user_id = req.user.id;
 
-        const appliedJobIds = await SeekerAppliedJobs.distinct('arr.job_id', { _id: user_id });
+        const applicationIds = await SeekerAppliedJobs.distinct('arr._id', { _id: user_id });
+        const appliedJobIds=[];
+        applicationIds.map(async(id)=>{
+            const application=await Application.findById(id);
+            appliedJobIds.push(application.jobId);
+        })
+
+        console.log(appliedJobIds);
 
         const savedJobIds = await SavedJobs.distinct('arr.job_id', { _id: user_id });
 
