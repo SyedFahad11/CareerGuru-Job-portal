@@ -25,6 +25,6 @@ const AppliedJobs = new Schema({
     default: Date.now
   },
 });
-const recruiterAppliedJobs = mongoose.model('recruiterAppliedJobs', AppliedJobs);
+const application = mongoose.model('application', AppliedJobs);
 
-module.exports = recruiterAppliedJobs;
+module.exports = application;

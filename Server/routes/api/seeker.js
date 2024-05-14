@@ -2,8 +2,8 @@ const express = require("express");
 const Jobs = require('../../models/Jobs');
 const SavedJobs = require('../../models/Seeker/SavedJobs')
 const SeekerAppliedJobs = require('../../models/Seeker/AppliedJobs')
-const RecruiterAppliedJobs = require('../../models/Recruiter/AppliedJobs')
-const Application=require('../../models/Application')
+const RecruiterJobs = require('../../models/Recruiter/AppliedJobs')
+const Application = require('../../models/Application')
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();
@@ -134,48 +134,63 @@ router.post('/applyJob', fetchuser, async (req, res) => {
         const jobId = req.body.job_id;
 
         const job = await Jobs.findById(jobId);
-        const recId=job.recId;
+        const recId = job.recId;
 
-        var application=await Application.findOne({recId,seekerId,jobId});
-        if(application.length===0){
-            const sop=req.body.sop;
-            const status="Applied";
-            application=await Application.create({
-                recId,seekerId,jobId,sop,status
+        var application = await Application.findOne({ recId, seekerId, jobId });
+
+        if (application===null) {
+            const sop = req.body.sop;
+            const status = "Pending";
+            application = await Application.create({
+                recId, seekerId, jobId, sop, status
             });
         }
-        const applicationId=application.id;
+        else {
+            console.log(application);
+            res.status(400).send("Application Already Present");
+            return ;
+        }
+        const applicationId = application.id;
 
+        console.log("HERE");
 
+        let seeker = await SeekerAppliedJobs.findOne({ _id: seekerId });
+        if (seeker) {
 
-        let recruiter = await RecruiterAppliedJobs.findOne({ _id: recId });
-        if (recruiter) {
-
-            let foundApplication = false;
-
-            recruiter.arr.forEach((obj) => {
-                if (obj.application_id === jobId) foundApplication = true;
-                console.log(obj)
-            })
-
-            if (!foundApplication) {
-                const newObject = { job_id: jobId }
-                const response = await SavedJobs.findByIdAndUpdate({ _id: userId }, { $push: { arr: newObject } }, { new: true })
-
-            }
+            const newObject = { application_id: applicationId }
+            const response = await SeekerAppliedJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
 
         }
         else {
-            const response = await AppliedJobs.create({
-                _id: userId,
+            const response = await SeekerAppliedJobs.create({
+                _id: seekerId,
                 arr: [{
-                    job_id: jobId
+                    application_id: applicationId
                 }]
             })
 
         }
 
-        //res.send("Applied Job")
+
+        let recruiter = await RecruiterJobs.findOne({ _id: recId });
+        if (recruiter) {
+
+            const newObject = { application_id: applicationId }
+            const response = await RecruiterJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
+
+        }
+        else {
+            const response = await RecruiterJobs.create({
+                _id: recId,
+                arr: [{
+                    application_id: applicationId
+                }]
+            })
+
+        }
+
+        res.send("Applied Job")
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
