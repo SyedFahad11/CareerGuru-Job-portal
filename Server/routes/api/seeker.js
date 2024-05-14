@@ -125,6 +125,52 @@ router.post('/savedJobs/delete', fetchuser, async (req, res) => {
 
 })
 
+router.post('/applyJob', fetchuser, async (req, res) => {
+    try {
+
+
+        const userId = req.user.id;
+        const jobId = req.body.job_id;
+
+        const application=await application.create({
+            
+        })
+
+        let user = await AppliedJobs.findOne({ _id: userId });
+        if (user) {
+
+            let foundApplication = false;
+
+            user.arr.forEach((obj) => {
+                if (obj.job_id === jobId) foundApplication = true;
+                console.log(obj)
+            })
+
+            if (!foundApplication) {
+                const newObject = { job_id: jobId }
+                const response = await SavedJobs.findByIdAndUpdate({ _id: userId }, { $push: { arr: newObject } }, { new: true })
+
+            }
+
+        }
+        else {
+            const response = await AppliedJobs.create({
+                _id: userId,
+                arr: [{
+                    job_id: jobId
+                }]
+            })
+
+        }
+
+        res.send("Saved Job")
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+
 
 
 

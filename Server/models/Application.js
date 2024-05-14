@@ -2,6 +2,12 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose;
 
 const AppliedJobs = new Schema({
+  recId:{
+    type:String
+  },
+  seekerId:{
+    type:String
+  },
   sop: {
     type: String,
   },
