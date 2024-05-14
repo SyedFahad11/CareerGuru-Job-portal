@@ -162,14 +162,18 @@ router.post('/applyJob', fetchuser, async (req, res) => {
             promises.push(SeekerAppliedJobs.create({ _id: seekerId, arr: [{ _id: applicationId }] }));
         }
 
-        // Update RecruiterJobs collection
-        let recruiter = await RecruiterJobs.findOne({ _id: recId });
-        if (recruiter) {
-            const newObject = { _id: applicationId };
-            promises.push(RecruiterJobs.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true }));
-        } else {
-            promises.push(RecruiterJobs.create({ _id: recId, arr: [{ _id: applicationId }] }));
+
+        let recruiter = await RecruiterJobs.findOneAndUpdate(
+            { _id: recId, "jobArr.jobId": jobId },
+            { $push: { "jobArr.$.appliArr": { _id: applicationId } } },
+            { new: true }
+        );
+
+        if (!recruiter) {
+
+            promises.push(RecruiterJobs.create({ _id: recId, jobArr: [{ jobId: jobId, appliArr: [{ _id: applicationId }] }] }));
         }
+
 
         // Wait for all database operations to complete
         await Promise.all(promises);
