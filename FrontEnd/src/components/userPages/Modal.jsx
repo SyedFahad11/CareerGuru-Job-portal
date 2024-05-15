@@ -27,7 +27,7 @@ function Modal(props) {
   return (
     <>
       <button className="btn btn-success btn-sm" onClick={handleShow} style={styles.actionButton}>
-        Apply
+        {props.name}
       </button>
 
       <div

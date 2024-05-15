@@ -106,7 +106,7 @@ function Card(props) {
                                             </div> :
                                             <div className="ml-2 row" style={styles.truncated} >
                                                 <h6 className="font-weight-normal mb-0 text-muted">{props.Info.substring(0, 50)}</h6>
-                                                <button className="btn btn-link btn-sm pt-0" onClick={handleToggleDescription}>Show More</button>
+                                                <button className="btn btn-link btn-sm pt-0 mt-0" onClick={handleToggleDescription}>Show More</button>
 
                                             </div>
                                         }
@@ -126,7 +126,7 @@ function Card(props) {
                                     <div>
                                         <button className="btn btn-warning btn-sm" style={styles.actionButton}>Saved</button>
 
-                                        <Modal jobId={props._id} />
+                                        <Modal jobId={props._id} name="Apply" />
 
                                     </div>
                                 }
@@ -136,7 +136,7 @@ function Card(props) {
                                 {buttonState === 'empty' &&
                                     <div>
                                         <button className="btn btn-primary btn-sm" style={styles.actionButton} onClick={handleSave}>Save</button>
-                                        <Modal _id={props._id} />
+                                        <Modal _id={props._id} name="Apply" />
 
 
                                     </div>
@@ -160,8 +160,34 @@ function Card(props) {
 
                                 {buttonState === 'saved' && <div>
                                     <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>Remove</button>
-                                    <Modal _id={props._id} />
+                                    <Modal _id={props._id} name="Apply" />
                                 </div>
+                                }
+                            </div>
+
+                        )}
+
+                        {props.page === 'applied' && (
+
+                            <div style={styles.buttonGroup}>
+
+                                {buttonState === 'Pending' &&
+                                    <div>
+                                        <button className="btn btn-primary btn-sm" style={styles.actionButton} >Pending</button>
+                                    </div>
+                                }
+
+                                {buttonState === 'Rejected' &&
+                                    <div>
+                                        <button className="btn btn-danger btn-sm" style={styles.actionButton} >Rejected</button>
+                                        <Modal _id={props._id} name="Message" />
+                                    </div>
+                                }
+                                {buttonState === 'Accepted' &&
+                                    <div>
+                                        <button className="btn btn-success   btn-sm" style={styles.actionButton} >Rejected</button>
+                                        <Modal _id={props._id} name="Message" />
+                                    </div>
                                 }
                             </div>
 
@@ -204,8 +230,11 @@ const styles = {
         marginLeft: '10px',
     },
     truncated: {
-        textOverflow: 'clip',
-        whiteSpace: 'nowrap',
+        /* textOverflow: 'clip',
+        whiteSpace: 'nowrap', */
+        overflow: 'visible',
+        whiteSpace: 'normal',
+
     },
 
     // Expanded description

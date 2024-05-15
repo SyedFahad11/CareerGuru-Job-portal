@@ -17,6 +17,7 @@ function AppliedJobs() {
             }
         })
         const json= await response.json()
+        console.log(json);
         setJob(json)
 
     }
@@ -36,8 +37,10 @@ function AppliedJobs() {
             postedDate={props.date}
             Info={props.description}
             _id={props._id}
+            type={props.status}
+            message={props.message}
             page="applied"
-            
+
         />
     }
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const Jobs = require('../../models/Jobs');
 const Recruiter = require("../../models/Recruiter/User");
+const RecJobStats=require('../../models/Recruiter/AppliedJobs')
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();
@@ -89,6 +90,39 @@ router.post('/deleteJob', async (req, res) => {
         })
 
         res.send("HI")
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+
+router.get('/appliedJobs', fetchuser, async (req, res) => {
+    try {
+
+        const recId = req.user.id;
+        const jobId=req.body.job_id;
+        const recJobsData = await RecJobStats.findOne({ recId: recId, jobId: jobId });
+        console.log(recJobsData);
+
+
+
+        const Array = []
+        //Array.push({salary:"56"})
+       /*  const asyncResolution = await Promise.all(recJobsData.arr.map(async (obj) => {
+            const applicationData = await Application.findById(obj._id);
+
+            const jobData = await Jobs.findById(applicationData.jobId);
+
+            const data = { ...applicationData._doc, ...jobData._doc };
+
+            Array.push(data)
+
+        })
+        ) */
+
+
+        res.send(Array)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
