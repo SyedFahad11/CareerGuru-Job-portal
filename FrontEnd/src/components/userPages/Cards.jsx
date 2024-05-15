@@ -53,14 +53,14 @@ function Card(props) {
 
             <div className="card-container" style={styles.cardContainer}>
                 <div className="card text-left" style={styles.cardComponent}>
-                    <div className="card-body">
+                    <div className="card-header">
                         <h5 className="card-title mb-3" style={styles.cardTitle}>{props.title}</h5>
 
                         <div className="row mb-2 p-1">
                             <div className="col-md-6">
                                 <div className="row">
                                     <h6 className="mb-0 text-muted ml-3">Company:</h6>
-                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" >
+                                    <h6 className="mb-0 text-muted ml-2" >
                                         {props.companyName}
                                     </h6>
                                 </div>
@@ -69,7 +69,7 @@ function Card(props) {
                             <div className="col-md-6 ">
                                 <div className="row">
                                     <h6 className="mb-0 text-muted ml-3">Location:</h6>
-                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" >{props.location}</h6>
+                                    <h6 className="mb-0 text-muted ml-2" >{props.location}</h6>
                                 </div>
                             </div>
 
@@ -80,18 +80,19 @@ function Card(props) {
                             <div className="col-md-6">
                                 <div className="row">
                                     <h6 className="mb-0 text-muted ml-3">Salary:</h6>
-                                    <h6 className="font-weight-normal mb-0 text-muted ml-2" >{props.Salary}</h6>
+                                    <h6 className=" mb-0 text-muted ml-2" >{props.Salary}</h6>
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="row">
                                     <h6 className="mb-0 text-muted ml-3">Posted On:</h6>
-                                    <h6 className="font-weight-normal mb-2 text-muted ml-2" >{props.postedDate}</h6>
+                                    <h6 className="mb-2 text-muted ml-2" >{props.postedDate}</h6>
                                 </div>
                             </div>
                         </div>
 
-
+                        </div>
+                        <div className="card-body">
                         <div className="ml-3 mb-3 p-1">
                             <div className="row">
 
@@ -100,12 +101,12 @@ function Card(props) {
                                     <div >
                                         {expanded ?
                                             <div className="row" style={styles.expanded} >
-                                                <h6 className="m-2 font-weight-normal mb-0 text-muted " style={styles.para}>{props.Info}</h6>
+                                                <h6 className="m-2 fw-normal mb-0 text-muted " style={styles.para}>{props.Info}</h6>
                                                 <button className="btn btn-link btn-sm" onClick={handleToggleDescription}>Show Less</button>
 
                                             </div> :
                                             <div className="row" style={styles.truncated} >
-                                                <h6 className="ml-2 font-weight-normal mb-0 text-muted"  style={styles.para}>{props.Info.substring(0, 200)} </h6>
+                                                <h6 className="ml-2 fw-normal mb-0 text-muted"  style={styles.para}>{props.Info.substring(0, 200)} </h6>
                                                 <button className="btn btn-link btn-sm pt-0 mt-0" onClick={handleToggleDescription}>Show More</button>
 
                                             </div>
@@ -114,12 +115,14 @@ function Card(props) {
 
                                     :
                                     <div  >
-                                        <h6 className="font-weight-normal mb-0 text-muted">{props.Info}</h6>
+                                        <h6 className="fw-normal mb-0 text-muted">{props.Info}</h6>
                                     </div>
                                 }
 
                             </div>
                         </div>
+                        </div>
+                        <div className="card-footer">
 
                         {props.page === 'rec' && (
                             <div style={styles.buttonGroup}>

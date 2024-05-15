@@ -29,15 +29,14 @@ function RecJobs() {
     function AddEntries(props){
 
         return <Card
-            title={props.title}
+            Title={props.title}
             Salary= {props.salary}
-            Recruiter={props.postedBy}
-            WorkingHours={props.workingHours}
-            postedDate={props.date}
+            PostedDate={props.date}
             Info={props.description}
+            Contract={props.contractType}
+            Category={props.category}
+            Location={props.location}
             _id={props._id}
-            Contact={props.contact}
-            delete="false"
             />
     }
 

@@ -1,4 +1,4 @@
-import PostJob from './addJob'
+import PostJob from './AddJobs'
 import {useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 

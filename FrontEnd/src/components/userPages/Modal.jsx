@@ -33,8 +33,9 @@ function Modal(props) {
       <div
         className={`modal fade ${show ? 'show' : ''}`}
         style={{ display: show ? 'block' : 'none' }}
+        role="dialog"
       >
-        <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
           <div className="modal-content" style={styles.modalContent}>
             <div className="modal-header">
               <h6 className="modal-title" id="modal-title">
@@ -49,7 +50,7 @@ function Modal(props) {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body" >
               <form onSubmit={handleSubmit} className="form-signup">
                 <div className="form-group">
                   <textarea
@@ -80,9 +81,10 @@ const styles = {
   modalContent: {
     backgroundColor: "white",
     borderRadius: "10px",
-    maxWidth: "600px", // Adjust as needed
+    maxWidth: "800px", // Adjust as needed
     margin: "auto",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" // Add box shadow for a better appearance
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)", // Add box shadow for a better appearance
+
   },
   backdrop: {
     position: "fixed",
@@ -102,6 +104,16 @@ const styles = {
     minHeight: '100px', // Set a minimum height
     maxHeight: '300px', // Set a maximum height (optional)
   },
+  input: {
+    width: '',
+    padding: '0.5rem',
+    fontSize: '1rem',
+    borderRadius: '0.25rem',
+    border: '1px solid #ced4da',
+    marginTop: '0.5rem',
+    marginBottom: '0.5rem',
+    boxSizing: 'border-box',
+  }
 };
 
 export default Modal;

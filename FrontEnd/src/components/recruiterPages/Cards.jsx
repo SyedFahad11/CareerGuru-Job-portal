@@ -1,185 +1,197 @@
-import React , { useState ,useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Popover from '@mui/material/Popover';
+import Modal from "./UpdateModal";
 
 
 function Card(props) {
     const navigate = useNavigate();
     const token = localStorage.getItem('token')
 
-    const [popOverData, setPopOverData] = useState({});
-    const [cardData,setUpdatedData]=useState(props);
+    const [cardData, setUpdatedData] = useState(props);
+    const [expanded, setExpanded] = useState(false);
 
-    useEffect(() => {
-        setPopOverData(props)
-    }, [])
+    const handleToggleDescription = () => {
+        setExpanded(!expanded);
+    };
+
 
 
 
     const handleDelete = async (e) => {
-        const response = await fetch('http://localhost:5000/api/rec/deleteJob', {
+       /*  const response = await fetch('http://localhost:5000/api/rec/deleteJob', {
             method: 'Post',
             headers: {
                 'Content-Type': 'application/json',
-                'jobId':props._id
+                'jobId': props._id
             }
         })
-        window.location.reload();
+        window.location.reload() */;
     }
-    const handleApply = () => {
+    const handleApplications = () => {
 
     }
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const handleUpdate= (event) => {
-        setAnchorEl(1);
-    };
-    const handleClose = () => {
-        setPopOverData(cardData);
-        setAnchorEl(0);
+
+    const handleUpdate = (event) => {
+
     };
 
-    const updateJobs=async(e)=>{
-        e.preventDefault();
-        const {title,Salary,Recruiter,WorkingHours,Info,Contact}=e.target;
-        const response = await fetch("http://localhost:5000/api/rec/updateJob", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'jobId':props._id
-            },
-            body: JSON.stringify({
-                title: title.value,
-                salary: Salary.value,
-                postedBy: Recruiter.value,
-                workingHours:WorkingHours.value,
-                description:Info.value,
-                contact:Contact.value
-            })
-        });
-        const json=await response.json();
-        setUpdatedData(popOverData);
-    }
-    const OnChange=(e)=>{
 
-        setPopOverData({...popOverData,[e.target.name]:e.target.value})
-
-    }
-
-
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-
+    /*  const updateJobs = async (e) => {
+         e.preventDefault();
+         const { title, Salary, Recruiter, WorkingHours, Info, Contact } = e.target;
+         const response = await fetch("http://localhost:5000/api/rec/updateJob", {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+                 'jobId': props._id
+             },
+             body: JSON.stringify({
+                 title: title.value,
+                 salary: Salary.value,
+                 postedBy: Recruiter.value,
+                 workingHours: WorkingHours.value,
+                 description: Info.value,
+                 contact: Contact.value
+             })
+         });
+         const json = await response.json();
+         setUpdatedData(popOverData);
+     } */
 
     return (
         <div>
-            <div className="card card-component text-left col-lg-9 " style={{ borderRadius: "15px" }}>
-                <div className="card-body " >
-
-                    <h5 className=" row card-title mb-3">{cardData.title}</h5>
-
-                    <div className="row mb-1">
-                        <h6 className=" mb-0 text-muted">Salary :</h6>
-                        <h6 className=" font-weight-normal mb-0 text-muted  ">{cardData.Salary}</h6>
-
+            <div className="card card-component text-left col-lg-9">
+                <div className="card-header">
+                    <div className="row">
+                        <h5 className="card-title mb-3 col-12">{cardData.Title}</h5>
                     </div>
-
-                    <div className="row mb-1">
-                        <h6 className=" mb-0 text-muted">Posted By :</h6>
-                        <h6 className=" font-weight-normal mb-0 text-muted ">{cardData.Recruiter},
-                            <a href="https://www.arcesium.com/careers/" className="text-muted" style={{ color: "black" }}> Arcesium</a></h6>
-
-                    </div>
-                    <div className="row mb-1">
-                        <h6 className=" mb-0 text-muted">Working Hours:</h6>
-                        <h6 className=" font-weight-normal mb-0 text-muted ">{cardData.WorkingHours}</h6>
-
-
-
-
-                    </div>
-                    <p className="row mb-2  text-muted ">{cardData.Info}</p>
-
                     <div className="row mb-2">
-                        <h6 className=" mb-0 text-muted">Posted On :</h6>
-                        <h6 className=" font-weight-normal mb-2 text-muted ">{cardData.postedDate}</h6>
-
+                        <div className="col-auto">
+                            <h6 className="text-muted">Salary :</h6>
+                        </div>
+                        <div className="col">
+                            <h6 className="mb-0 text-muted">{cardData.Salary}</h6>
+                        </div>
                     </div>
-                    {cardData.delete === 'false' ?
-                        <div style={{}} >
-                            <button className="btn btn-primary btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px", marginRight: "25px",maxWidth:"150px" }} onClick={handleUpdate} >Update</button>
-
-                            <button className="btn btn-danger btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px" ,maxWidth:"150px"}} onClick={handleDelete}>Delete</button></div>
-                            :
-                        <div style={{}} >
-                            <button className="btn btn-danger btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px", marginRight: "25px" }} onClick={handleDelete}>Delete</button>
-
-                            <button className="btn btn-success btn-sm" style={{ padding: "5px 50px", marginLeft: "-15px" }} onClick={handleApply}>Apply</button></div>
-                    }
-
+                    <div className="row mb-2">
+                        <div className="col-auto">
+                            <h6 className="mb-0 text-muted">Location :</h6>
+                        </div>
+                        <div className="col">
+                            <h6 className="mb-2 text-muted">{cardData.Location}</h6>
+                        </div>
+                    </div>
+                    <div className="row mb-2">
+                        <div className="col-auto">
+                            <h6 className="mb-0 text-muted">Posted On :</h6>
+                        </div>
+                        <div className="col">
+                            <h6 className=" mb-2 text-muted">{cardData.PostedDate}</h6>
+                        </div>
+                    </div>
                 </div>
+                <div className="card-body">
+                    {props.Info.length > 100 ? (
+                        <div className="">
+                            {expanded ? (
+                                <div className="row mb-2" style={styles.expanded}>
+                                    <div className="">
+                                        <h6 className="fw-normal mb-0 text-muted" style={styles.para}>
+                                            {props.Info}
+                                        </h6>
+                                    </div>
+                                    <div className="">
+                                        <button className="btn btn-link btn-sm" onClick={handleToggleDescription}>
+                                            Show Less
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="row mb-2" style={styles.truncated}>
+                                    <div className="">
+                                        <h6 className="fw-normal mb-0 text-muted" style={styles.para}>
+                                            {props.Info.substring(0, 200)}
+                                        </h6>
+                                    </div>
+                                    <div className="">
+                                        <button className="btn btn-link btn-sm pt-0 mt-0" onClick={handleToggleDescription}>
+                                            Show More
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="row">
+                            <div className="col">
+                                <h6 className="fw-normal mb-2 text-muted">{props.Info}</h6>
+                            </div>
+                        </div>
+                    )}
 
+                    <div className="row" style={styles.buttonGroup}>
+
+                        <div className="col-auto">
+                            <Modal cardData={props}/>
+                            <button className="btn btn-warning btn-sm me-2" style={styles.actionButton} onClick={handleApplications}>
+                                View Applications
+                            </button>
+                            <button className="btn btn-danger btn-sm" style={styles.actionButton} onClick={handleDelete}>
+                                Remove Job
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center'
-                }}
-
-                PaperProps={{
-                    style: { width: '80%',height:'70%',marginTop:'10%',opacity:'90%' },
-                }}
-            >
-                <div className="container-fluid my-3 ">
-                    <h4>Update Job</h4>
-                    <form className="my-3" onSubmit={updateJobs} >
-                        <div className="mb-3">
-                            <label htmlFor="title" className="form-label ">Title</label>
-                            <input type="text" className="form-control" name="title"
-                             value={popOverData.title} required   onChange={OnChange} />
-                            {/**/}
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="tag" className="form-label ">Salary</label>
-                            <input type="text" className="form-control" name="Salary"  value={popOverData.Salary} required onChange={OnChange}/>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="tag" className="form-label ">PostedBy</label>
-                            <input type="text" className="form-control" name="Recruiter" value={popOverData.Recruiter} onChange={OnChange}/>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="tag" className="form-label ">WorkingHours</label>
-                            <input type="text" className="form-control" name="WorkingHours" value={popOverData.WorkingHours} onChange={OnChange}/>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="description" className="form-label " >Description</label>
-                            <input type="text" className="form-control" name="Info"  value={popOverData.Info}required  onChange={OnChange}/>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="description" className="form-label ">Contact</label>
-                            <input type="text" className="form-control" name="Contact" value={popOverData.Contact} required onChange={OnChange}/>
-                        </div>
-
-                        <button type="submit" className="btn btn-danger" >Update</button>
-                    </form>
-                </div>
-
-
-
-            </Popover>
-
-        </div>
+        </div >
     )
 }
+
+const styles = {
+    cardContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '2%',
+
+    },
+    cardComponent: {
+        width: '100%',
+        backgroundColor: 'white',
+        boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.1)',
+        padding: '10px',
+    },
+    cardTitle: {
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    actionButton: {
+        padding: '8px 20px',
+        marginLeft: '10px',
+    },
+    buttonGroup: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+
+    truncated: {
+
+        overflow: 'visible',
+        whiteSpace: 'normal',
+
+    },
+
+    expanded: {
+        overflow: 'hidden',
+        whiteSpace: 'normal',
+
+    },
+    para: {
+        lineHeight: '1.5em',
+        whiteSpace: 'pre-wrap'
+
+    }
+};
 export default Card;

@@ -8,7 +8,7 @@ import ProfileUser from "./components/userPages/Profile";
 import RecJobs from "./components/userPages/RecJobs"
 import SavedJobs from "./components/userPages/SavedJobs"
 import Recruiter from "./components/recruiterPages/Recruiter"
-import AddJob from "./components/recruiterPages/addJob";
+import AddJob from "./components/recruiterPages/AddJobs";
 import ProfileRecruiter from "./components/recruiterPages/Profile";
 import MyJobs from "./components/recruiterPages/MyJobs";
 import AppliedJobs from "./components/userPages/AppliedJobs";
