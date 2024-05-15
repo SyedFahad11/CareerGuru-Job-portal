@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "./Bootstrap/Navbar";
+import Navbar from "./Bootsrap/Navbar";
 
 function AddJob() {
     var token = localStorage.getItem('token');
