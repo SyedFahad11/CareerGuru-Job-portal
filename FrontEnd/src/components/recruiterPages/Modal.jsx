@@ -11,17 +11,18 @@ function Modal(props) {
     e.preventDefault();
     const content = e.target.description.value;
     console.log(content);
+    props.type === 'Accept' ? props.setter("Accepted") : props.setter("Rejected");
     /* const response = await fetch('http://localhost:5000/api/seek/applyJob', {
-      method: 'Post',
-      headers: {
-        'auth-token': token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ job_id: props._id, sop: content })
-    });
-    const resp = await response.text();
-    console.log(resp);
- */
+  method: 'Post',
+  headers: {
+    'auth-token': token,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ job_id: props._id, sop: content })
+});
+const resp = await response.text();
+console.log(resp);
+*/
   }
 
   return (
@@ -71,7 +72,7 @@ function Modal(props) {
                   ></textarea>
                 </div>
 
-                <button className={`btn ${props.type==='Accept'? 'btn-success':'btn-danger'} mt-2`} type="submit">
+                <button className={`btn ${props.type === 'Accept' ? 'btn-success' : 'btn-danger'} mt-2`} type="submit">
                   {props.type}
                 </button>
               </form>
