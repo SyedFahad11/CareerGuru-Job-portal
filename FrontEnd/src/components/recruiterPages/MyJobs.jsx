@@ -44,8 +44,8 @@ function RecJobs() {
     return (
         <div>
             <Navbar/>
-            {jobData.length ===0 ? <h4>No Posted Jobs</h4>:
-                <div>{jobData.map(AddEntries)}</div>
+            {jobData.length ===0 ? <h4>No Applications</h4>:
+                <div >{jobData.map(AddEntries)}</div>
             }
         </div>
 
