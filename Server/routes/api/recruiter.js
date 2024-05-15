@@ -1,9 +1,10 @@
 const express = require("express");
 const Jobs = require('../../models/Jobs');
 const Recruiter = require("../../models/Recruiter/User");
-const RecruiterJobs=require('../../models/Recruiter/AppliedJobs')
-const Application=require('../../models/Application')
-const Seeker =require('../../models/Seeker/User')
+const RecruiterJobs = require('../../models/Recruiter/AppliedJobs')
+const Application = require('../../models/Application')
+const Seeker = require('../../models/Seeker/User')
+const Employee = require('../../models/Recruiter/Employee');
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();
@@ -103,23 +104,23 @@ router.get('/applications', fetchuser, async (req, res) => {
     try {
 
         const recId = req.user.id;
-        const jobId=req.headers.job_id;
+        const jobId = req.headers.job_id;
         const recJobsData = await RecruiterJobs.findOne({ _id: recId });
         if (recJobsData) {
             const currJobApplications = recJobsData.jobArr.find(job => job._id === jobId);
 
             if (currJobApplications) {
 
-                const applications=currJobApplications.appliArr;
-                const seekers=[];
-                await Promise.all(applications.map(async(each)=>{
-                    const appliInfo=await Application.findById(each._id).select('-recId ')
-                    const seekerInfo=await Seeker.findById(appliInfo.seekerId).select('-password -email -_id');
-                    seekers.push({...appliInfo._doc,...seekerInfo._doc});
+                const applications = currJobApplications.appliArr;
+                const seekers = [];
+                await Promise.all(applications.map(async (each) => {
+                    const appliInfo = await Application.findById(each._id).select('-recId ')
+                    const seekerInfo = await Seeker.findById(appliInfo.seekerId).select('-password -email -_id');
+                    seekers.push({ ...appliInfo._doc, ...seekerInfo._doc });
                 }));
 
                 res.send(seekers)
-               return;
+                return;
 
             } else {
                 res.send("No Jobs Found");
@@ -135,7 +136,50 @@ router.get('/applications', fetchuser, async (req, res) => {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
-
 })
+router.post('/employeeStatus', async (req, res) => {
+    const applicationId = req.body.appId;
+    const status = req.body.status;
+    const message = req.body.msg;
+
+
+    const application = await Application.findByIdAndUpdate(applicationId, { status: status, message: message }, { new: true });
+    const recId = application.recId;
+    const seekerId = application.seekerId;
+    if (status === 'Accepted') {
+        let recruiterEmps = await Employee.findOne({ _id: recId });
+        if (recruiterEmps) {
+            let flag = false;
+            recruiterEmps.arr.forEach((each) => {
+                if (each._id === seekerId) {
+                    flag = true;
+                }
+            })
+            const response=recruiterEmps;
+            if (!flag) {
+
+                const newObject = { _id: seekerId }
+                response = await Employee.findByIdAndUpdate({ _id: recId }, { $push: { arr: newObject } }, { new: true })
+            }
+            res.send(response);
+            return;
+        }
+        else {
+            const response = await Employee.create({
+                _id: recId,
+                arr: [{
+                    _id: application.seekerId
+                }]
+            })
+
+            res.send(response);
+            return;
+        }
+
+    }
+    res.send("Rejected");
+
+}
+)
 
 module.exports = router

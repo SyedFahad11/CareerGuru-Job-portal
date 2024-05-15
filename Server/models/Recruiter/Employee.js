@@ -8,7 +8,8 @@ const Emp = new Schema({
     },
     arr: [{
         _id: {
-            type: String
+            type: String,
+            unique:true
         },
         joinDate: {
             type: Date,
@@ -19,6 +20,9 @@ const Emp = new Schema({
         }
     }]
 });
+
+Emp.index({ '_id': 1, 'arr._id': 1 }, { unique: true });
+//compound Index
 const savedJobs = mongoose.model('employee', Emp);
 
 module.exports = savedJobs;
