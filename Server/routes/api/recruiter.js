@@ -2,6 +2,8 @@ const express = require("express");
 const Jobs = require('../../models/Jobs');
 const Recruiter = require("../../models/Recruiter/User");
 const RecruiterJobs=require('../../models/Recruiter/AppliedJobs')
+const Application=require('../../models/Application')
+const Seeker =require('../../models/Seeker/User')
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();
@@ -104,40 +106,31 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
         const jobId=req.body.job_id;
         const recJobsData = await RecruiterJobs.findOne({ _id: recId });
         if (recJobsData) {
-            const existingJob = recJobsData.jobArr.find(job => job._id === jobId);
+            const currJobApplications = recJobsData.jobArr.find(job => job._id === jobId);
 
-            if (existingJob) {
+            if (currJobApplications) {
 
-               res.json(existingJob);
-               
+                const applications=currJobApplications.appliArr;
+                const seekers=[];
+                await Promise.all(applications.map(async(each)=>{
+                    const appliInfo=await Application.findById(each._id).select('-recId ')
+                    const seekerInfo=await Seeker.findById(appliInfo.seekerId).select('-password -email -_id');
+                    seekers.push({...appliInfo._doc,...seekerInfo._doc});
+                }));
+
+                res.send(seekers)
+               return;
+
             } else {
                 res.send("No Jobs Found");
                 return;
             }
 
-            await recruiter.save();
         } else {
             res.send("No Recruiter Found");
             return;
         }
 
-
-        const Array = []
-        //Array.push({salary:"56"})
-       /*  const asyncResolution = await Promise.all(recJobsData.arr.map(async (obj) => {
-            const applicationData = await Application.findById(obj._id);
-
-            const jobData = await Jobs.findById(applicationData.jobId);
-
-            const data = { ...applicationData._doc, ...jobData._doc };
-
-            Array.push(data)
-
-        })
-        ) */
-
-
-        res.send(recJobsData)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

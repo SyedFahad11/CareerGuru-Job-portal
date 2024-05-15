@@ -24,7 +24,7 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
         await Promise.all(applicationIds.map(async (id) => {
             const application = await Application.findById(id);
-            appliedJobIds.push(application.jobId);
+            if(application)appliedJobIds.push(application.jobId);
         }));
 
 
@@ -111,10 +111,12 @@ router.get('/savedJobs', fetchuser, async (req, res) => {
 
         const applicationIds = await SeekerAppliedJobs.distinct('arr._id', { _id: seekerId });
         const appliedJobIds = [];
+
         applicationIds.map(async (id) => {
             const application = await Application.findById(id);
-            appliedJobIds.push(application.jobId);
+            if(application) appliedJobIds.push(application.jobId);
         })
+
 
         const asyncResolution = await Promise.all(savedJobsData.arr.map(async (obj) => {
 
@@ -243,15 +245,25 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
         //Array.push({salary:"56"})
         const asyncResolution = await Promise.all(appliedJobsData.arr.map(async (obj) => {
             const applicationData = await Application.findById(obj._id);
+            if (!applicationData) {
+                return null; // Skip if application data does not exist
+            }
 
             const jobData = await Jobs.findById(applicationData.jobId);
+            if (!jobData) {
+                return null; // Skip if job data does not exist
+            }
 
             const data = { ...applicationData._doc, ...jobData._doc };
+            Array.push(data);
+    
+        }));
 
-            Array.push(data)
+        // Filter out null values (skipped documents)
+        const filteredData = asyncResolution.filter(data => data !== null);
 
-        })
-        )
+        // Now you have an array of valid data objects
+
 
 
         res.send(Array)
