@@ -9,20 +9,21 @@ function Modal(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const content = e.target.description.value;
-    console.log(content);
-    props.type === 'Accept' ? props.setter("Accepted") : props.setter("Rejected");
-    /* const response = await fetch('http://localhost:5000/api/seek/applyJob', {
-  method: 'Post',
-  headers: {
-    'auth-token': token,
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ job_id: props._id, sop: content })
-});
-const resp = await response.text();
-console.log(resp);
-*/
+    const {description} = e.target;
+    var status=null;
+    props.type === 'Accept' ? status="Accepted" : status="Rejected";
+    props.setter(status);
+    const response = await fetch('http://localhost:5000/api/rec/employeeStatus', {
+      method: 'Post',
+      headers: {
+        'auth-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ appId: props._id, status: status, msg:description.value })
+    });
+    const resp = await response.text();
+    console.log(resp);
+
   }
 
   return (

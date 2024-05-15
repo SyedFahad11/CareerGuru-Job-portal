@@ -137,7 +137,7 @@ router.get('/applications', fetchuser, async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
-router.post('/employeeStatus', async (req, res) => {
+router.post('/employeeStatus', fetchuser,async (req, res) => {
     const applicationId = req.body.appId;
     const status = req.body.status;
     const message = req.body.msg;
@@ -155,7 +155,7 @@ router.post('/employeeStatus', async (req, res) => {
                     flag = true;
                 }
             })
-            const response=recruiterEmps;
+            var response=recruiterEmps;
             if (!flag) {
 
                 const newObject = { _id: seekerId }

@@ -95,11 +95,11 @@ function Card(props) {
                 {buttonState === 'Pending' &&
                   <div  >
                     <div className="row" >
-                      <Modal type="Accept" setter={setButton}/>
+                      <Modal type="Accept" setter={setButton} _id={props.ApplicationId}/>
 
                     </div>
                     <div className="row">
-                      <Modal type="Reject" setter={setButton}/>
+                      <Modal type="Reject" setter={setButton} _id={props.ApplicationId}/>
 
                     </div>
                   </div>
