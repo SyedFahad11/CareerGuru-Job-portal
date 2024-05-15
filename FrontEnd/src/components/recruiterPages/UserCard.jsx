@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "./UpdateModal";
+import Modal from "./Modal";
 
 
 function Card(props) {
@@ -53,14 +53,11 @@ function Card(props) {
               </div>
               <div className="col-auto">
                 <div className="row">
-                  <button className="btn btn-success btn-md" style={styles.button}>
-                    Accept
-                  </button>
+                  <Modal type="Accept"/>
+
                 </div>
                 <div className="row">
-                  <button className="btn btn-danger btn-md" style={styles.button}>
-                    Reject
-                  </button>
+                  <Modal type="Reject"/>
                 </div>
               </div>
 
@@ -93,40 +90,12 @@ const styles = {
     boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.1)',
     padding: '10px',
   },
-  cardTitle: {
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  actionButton: {
-    padding: '8px 20px',
-    marginLeft: '10px',
-  },
-  buttonGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
+
   button: {
-    marginRight: '8px', // Add margin to separate buttons horizontally
-    marginBottom: '8px', // Add margin to separate buttons vertically
-    width: '100%', // Make buttons fill the width of their container
+    marginRight: '8px',
+    marginBottom: '8px',
+    width: '100%',
   },
 
-  truncated: {
-
-    overflow: 'visible',
-    whiteSpace: 'normal',
-
-  },
-
-  expanded: {
-    overflow: 'hidden',
-    whiteSpace: 'normal',
-
-  },
-  para: {
-    lineHeight: '1.5em',
-    whiteSpace: 'pre-wrap'
-
-  }
 };
 export default Card;
