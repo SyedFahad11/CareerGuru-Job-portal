@@ -32,7 +32,8 @@ function AppliedJobs() {
         return <Card
             title={props.title}
             Salary= {props.salary}
-            Recruiter={props.postedBy}
+            location={props.location}
+            companyName={props.companyName}
             WorkingHours={props.workingHours}
             postedDate={props.date}
             Info={props.description}

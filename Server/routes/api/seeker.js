@@ -21,13 +21,12 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
 
         const appliedJobIds = [];
-        
+
         await Promise.all( applicationIds.map(async (id) => {
             const application = await Application.findById(id);
             appliedJobIds.push(application.jobId);
         }));
 
-        console.log(appliedJobIds);
 
         const savedJobIds = await SavedJobs.distinct('arr.job_id', { _id: user_id });
 
@@ -76,7 +75,6 @@ router.post('/savedJobs', fetchuser, async (req, res) => {
 
             user.arr.forEach((obj) => {
                 if (obj.job_id === jobId) flag = true;
-                console.log(obj)
             })
 
             if (!flag) {

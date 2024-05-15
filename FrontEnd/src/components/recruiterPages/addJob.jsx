@@ -6,7 +6,7 @@ function AddJob() {
 
     var handleSubmit = async (e) => {
         e.preventDefault();
-        const { title,location, salary, description,category, contractType} = e.target;
+        const { title, location, salary, description, category, contractType } = e.target;
         const response = await fetch("http://localhost:5000/api/rec/addJob", {
             method: 'POST',
             headers: {
@@ -15,11 +15,11 @@ function AddJob() {
             },
             body: JSON.stringify({
                 title: title.value,
-                location:location.value,
+                location: location.value,
                 salary: salary.value,
                 description: description.value,
-                category:category.value,
-                contractType:contractType.value
+                category: category.value,
+                contractType: contractType.value
 
             })
         });
@@ -49,7 +49,15 @@ function AddJob() {
 
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label " >Description</label>
-                    <input type="text" className="form-control" name="description" required />
+                    <textarea
+                        className="form-control"
+                        id="description"
+                        name="description"
+                        rows="4" // Adjust the number of rows as needed
+                        placeholder=""
+                        style={styles.textarea} // Add custom styles
+                    ></textarea>
+                    
                 </div>
 
                 <div className="mb-3">
@@ -96,5 +104,12 @@ function AddJob() {
 
     </div>
 
+}
+const styles={
+    textarea: {
+        resize: 'vertical', // Allow vertical resizing
+        minHeight: '100px', // Set a minimum height
+        maxHeight: '300px', // Set a maximum height (optional)
+      },
 }
 export default AddJob;
