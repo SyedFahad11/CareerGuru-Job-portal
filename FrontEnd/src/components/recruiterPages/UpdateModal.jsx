@@ -11,25 +11,26 @@ function Modal(props) {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const { title, location, Salary, Info, category, contractType } = e.target;
-    console.log(e.target);
-    /* const response = await fetch("http://localhost:5000/api/rec/updateJob", {
+    const { title, location, salary, description, category, contractType } = e.target;
+
+    const response = await fetch("http://localhost:5000/api/rec/updateJob", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'jobId': props._id
+            'jobId': props.cardData._id
         },
         body: JSON.stringify({
             title: title.value,
             location:location.value,
-            salary: Salary.value,
-            description: Info.value,
+            salary: salary.value,
+            description: description.value,
             category:category.value,
             contractType:contractType.value,
 
         })
     });
-    const json = await response.json(); */
+    const json = await response.json();
+    console.log(json)
 
   }
   const handleChange = (e) => {

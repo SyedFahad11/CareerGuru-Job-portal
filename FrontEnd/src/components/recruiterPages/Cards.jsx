@@ -133,7 +133,7 @@ function Card(props) {
                     <div className="row" style={styles.buttonGroup}>
 
                         <div className="col-auto">
-                            <Modal cardData={props}/>
+                            <Modal cardData={props} setter={setUpdatedData}/>
                             <button className="btn btn-warning btn-sm me-2" style={styles.actionButton} onClick={handleApplications}>
                                 View Applications
                             </button>

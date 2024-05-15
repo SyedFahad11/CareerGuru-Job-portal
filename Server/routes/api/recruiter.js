@@ -59,14 +59,14 @@ router.post('/updateJob', async (req, res) => {
 
     console.log(job)
 
-    const { title, salary, postedBy, workingHours, description, contact } = req.body;
+    const { title, location, salary, description, category, contractType } = req.body;
     const newObject = {}
     if (title !== job.title) newObject.title = title;
+    if (location !== job.location) newObject.location = location;
     if (salary !== job.salary) newObject.salary = salary;
-    if (postedBy !== job.postedBy) newObject.postedBy = postedBy;
-    if (workingHours !== job.workingHours) newObject.workingHours = workingHours;
     if (description !== job.description) newObject.description = description;
-    if (contact !== job.contact) newObject.contact = contact;
+    if (category !== job.category) newObject.category = category;
+    if (contractType !== job.contractType) newObject.contractType = contractType;
 
     const newJobDetails = await Jobs.findByIdAndUpdate(jobId, { $set: newObject }, { new: true })
     console.log(newJobDetails)
