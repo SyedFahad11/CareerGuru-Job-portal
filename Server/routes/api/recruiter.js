@@ -99,11 +99,11 @@ router.post('/deleteJob', async (req, res) => {
 
 })
 
-router.get('/appliedJobs', fetchuser, async (req, res) => {
+router.get('/applications', fetchuser, async (req, res) => {
     try {
 
         const recId = req.user.id;
-        const jobId=req.body.job_id;
+        const jobId=req.headers.job_id;
         const recJobsData = await RecruiterJobs.findOne({ _id: recId });
         if (recJobsData) {
             const currJobApplications = recJobsData.jobArr.find(job => job._id === jobId);

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./UpdateModal";
-import { FaArrowDown } from "react-icons/fa6";
 
 
 function Card(props) {
@@ -36,29 +35,6 @@ function Card(props) {
     const handleUpdate = (event) => {
 
     };
-
-
-    /*  const updateJobs = async (e) => {
-         e.preventDefault();
-         const { title, Salary, Recruiter, WorkingHours, Info, Contact } = e.target;
-         const response = await fetch("http://localhost:5000/api/rec/updateJob", {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-                 'jobId': props._id
-             },
-             body: JSON.stringify({
-                 title: title.value,
-                 salary: Salary.value,
-                 postedBy: Recruiter.value,
-                 workingHours: WorkingHours.value,
-                 description: Info.value,
-                 contact: Contact.value
-             })
-         });
-         const json = await response.json();
-         setUpdatedData(popOverData);
-     } */
 
     return (
         <div>
