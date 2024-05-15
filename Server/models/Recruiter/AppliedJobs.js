@@ -8,14 +8,13 @@ const AppliedJobs = new Schema({
     },
     jobArr: [{
 
-            jobId: {
+            _id: {
                 type:String
             },
             appliArr:[
                     {
                         _id: {
                             type: String,
-                            unique: true
                         },
                         date: {
                             type: Date,

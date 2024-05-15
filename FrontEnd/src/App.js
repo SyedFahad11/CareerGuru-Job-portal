@@ -12,6 +12,7 @@ import AddJob from "./components/recruiterPages/AddJobs";
 import ProfileRecruiter from "./components/recruiterPages/Profile";
 import MyJobs from "./components/recruiterPages/MyJobs";
 import AppliedJobs from "./components/userPages/AppliedJobs";
+import Applications from "./components/recruiterPages/Applications";
 function App() {
 
    return (
@@ -32,6 +33,8 @@ function App() {
           <Route path='recruiter/addJobs' element={<AddJob/>} />
           <Route path='recruiter/profile' element={<ProfileRecruiter/>} />
           <Route path='recruiter/myJobs' element={<MyJobs/>} />
+          <Route path='recruiter/applications/:jobId' element={<Applications/>} />
+
       </Routes>
     </div>
   );

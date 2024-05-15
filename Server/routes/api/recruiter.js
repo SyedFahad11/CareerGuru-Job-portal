@@ -1,7 +1,7 @@
 const express = require("express");
 const Jobs = require('../../models/Jobs');
 const Recruiter = require("../../models/Recruiter/User");
-const RecJobStats=require('../../models/Recruiter/AppliedJobs')
+const RecruiterJobs=require('../../models/Recruiter/AppliedJobs')
 const fetchuser = require('../../middleware/fetchuser');
 
 const router = express.Router();
@@ -102,9 +102,24 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
 
         const recId = req.user.id;
         const jobId=req.body.job_id;
-        const recJobsData = await RecJobStats.findOne({ recId: recId, jobId: jobId });
-        console.log(recJobsData);
+        const recJobsData = await RecruiterJobs.findOne({ _id: recId });
+        if (recJobsData) {
+            const existingJob = recJobsData.jobArr.find(job => job._id === jobId);
 
+            if (existingJob) {
+
+               res.json(existingJob);
+               
+            } else {
+                res.send("No Jobs Found");
+                return;
+            }
+
+            await recruiter.save();
+        } else {
+            res.send("No Recruiter Found");
+            return;
+        }
 
 
         const Array = []
@@ -122,7 +137,7 @@ router.get('/appliedJobs', fetchuser, async (req, res) => {
         ) */
 
 
-        res.send(Array)
+        res.send(recJobsData)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

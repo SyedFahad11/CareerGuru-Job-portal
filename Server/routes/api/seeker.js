@@ -22,7 +22,7 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
         const appliedJobIds = [];
 
-        await Promise.all( applicationIds.map(async (id) => {
+        await Promise.all(applicationIds.map(async (id) => {
             const application = await Application.findById(id);
             appliedJobIds.push(application.jobId);
         }));
@@ -32,7 +32,7 @@ router.get("/availableJobs", fetchuser, async (req, res) => {
 
 
         // Iterate through available jobs and add 'type' field
-        const jobsWithTypes = await Promise.all( availableJobs.map((job) => {
+        const jobsWithTypes = await Promise.all(availableJobs.map((job) => {
             let type = 'empty';
             for (const appliedJobId of appliedJobIds) {
                 if (appliedJobId === job._id.toString()) {
@@ -200,16 +200,26 @@ router.post('/applyJob', fetchuser, async (req, res) => {
         }
 
 
-        let recruiter = await RecruiterJobs.findOneAndUpdate(
-            { _id: recId, "jobArr.jobId": jobId },
-            { $push: { "jobArr.$.appliArr": { _id: applicationId } } },
-            { new: true }
-        );
+        let recruiter = await RecruiterJobs.findOne({ _id: recId });
 
-        if (!recruiter) {
+        if (recruiter) {
+            const existingJob = recruiter.jobArr.find(job => job._id === jobId);
 
-            promises.push(RecruiterJobs.create({ _id: recId, jobArr: [{ jobId: jobId, appliArr: [{ _id: applicationId }] }] }));
+            if (existingJob) {
+                existingJob.appliArr.push({ _id: applicationId });
+            } else {
+                recruiter.jobArr.push({ _id: jobId, appliArr: [{ _id: applicationId }] });
+            }
+
+            await recruiter.save();
+        } else {
+
+            recruiter = await RecruiterJobs.create({
+                _id: recId,
+                jobArr: [{ _id: jobId, appliArr: [{ _id: applicationId }] }]
+            });
         }
+
 
 
         // Wait for all database operations to complete
