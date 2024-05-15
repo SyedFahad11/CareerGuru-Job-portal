@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "./Navbar";
+import Navbar from "./Bootstrap/Navbar";
 
 function AddJob() {
     var token = localStorage.getItem('token');
@@ -57,7 +57,7 @@ function AddJob() {
                         placeholder=""
                         style={styles.textarea} // Add custom styles
                     ></textarea>
-                    
+
                 </div>
 
                 <div className="mb-3">

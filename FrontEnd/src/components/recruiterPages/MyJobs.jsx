@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react";
-import Navbar from "./Navbar";
-import Card from "./Cards";
+import Navbar from "./Bootstrap/Navbar";
+import Card from "./Bootstrap/JobCard";
 
 
 function RecJobs() {

@@ -7,7 +7,7 @@ import Register from "./components/landingPages/Register";
 import ProfileUser from "./components/userPages/Profile";
 import RecJobs from "./components/userPages/RecJobs"
 import SavedJobs from "./components/userPages/SavedJobs"
-import Recruiter from "./components/recruiterPages/Recruiter"
+import Recruiter from "./components/recruiterPages/RecruiterLanding"
 import AddJob from "./components/recruiterPages/AddJobs";
 import ProfileRecruiter from "./components/recruiterPages/Profile";
 import MyJobs from "./components/recruiterPages/MyJobs";
