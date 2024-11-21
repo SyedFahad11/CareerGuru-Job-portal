@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import Navbar from './Bootsrap/Navbar';
-import Card from './Bootsrap/ApplicationCard';
+import Navbar from './Bootstrap/Navbar';
+import Card from './Bootstrap/ApplicationCard';
 
 
 
